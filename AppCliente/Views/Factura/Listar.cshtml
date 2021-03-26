@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Entity_Layer.FacturaBO>
+
+@{ ViewBag.Title = "Facturas"; }
+
+<h2>Facturas</h2>
+
+<p>
+    @Html.ActionLink("Crear nueva factura", "InsertFactura")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NUM_FACTURA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FECHA_FACTURA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PLACA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NUM_IDENT_CLI)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FORMA_PAGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MEDIO_PAGO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IVA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VALOR_TOTAL_FACT)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.NUM_FACTURA)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FECHA_FACTURA.ToString("dd/MM/yyyy"))
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PLACA)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.NUM_IDENT_CLI)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.FORMA_PAGO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MEDIO_PAGO)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.IVA)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.VALOR_TOTAL_FACT)
+    </td>
+</tr>
+    }
+
+</table>
+
+

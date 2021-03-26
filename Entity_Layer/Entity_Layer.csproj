@@ -83,6 +83,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factura_ProductoBO.cs" />
+    <Compile Include="Factura_ServicioBO.cs" />
     <Compile Include="SucursalBO.cs" />
     <Compile Include="ClienteBO.cs" />
     <Compile Include="FacturaBO.cs" />

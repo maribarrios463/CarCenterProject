@@ -12,7 +12,7 @@ namespace Entity_Layer
         [Display(Name = "Número Factura")]
         public int NUM_FACTURA { get; set; }
 
-        [Required, Display(Name = "Fecha Factura")]
+        [Required, Display(Name = "Fecha Factura"), DisplayFormat(DataFormatString = "{yyyy-MM-dd}")]
         public DateTime FECHA_FACTURA { get; set; }
 
         [Required, Display(Name = "Placa")]
@@ -30,16 +30,16 @@ namespace Entity_Layer
         [Required, Display(Name = "Valor Total")]
         public long VALOR_TOTAL_FACT { get; set; }
 
+        [Required, Display(Name = "Valor Minimo")]
+        public long VALOR_MINIMO { get; set; }
+        [Required, Display(Name = "Valor Maximo")]
+        public long VALOR_MAXIMO { get; set; }
+
         [Required, Display(Name = "Cliente")]
         public string NUM_IDENT_CLI { get; set; }
 
-        [Required, Display(Name = "Servicio")]
-        public int COD_SERVICIO { get; set; }
-
         [Required, Display(Name = "Sucursal")]
         public int COD_SUCURSAL { get; set; }
-        [Required, Display(Name = "Código Vehiculo")]
-        public int COD_VEHICULO { get; set; }
 
     }
 }

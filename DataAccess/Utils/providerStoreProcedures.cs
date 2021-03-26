@@ -26,5 +26,11 @@ namespace DataAccess.Utils
         public string spNameServicio = String.Concat(packageName, "PRC_CRUD_DESC_SERVI_CARCENTER");
 
         public string spNameFactura = String.Concat(packageName, "PRC_CRUD_FACTURA_CARCENTER");
+
+        public string spNameDetalleProd = String.Concat(packageName, "PRC_DETALLE_PROD_CARCENTER");
+
+        public string spNameDetalleServ = String.Concat(packageName, "PRC_DETALLE_SER_CARCENTER");
+
+        public string spNameActualizarValoresFact = String.Concat(packageName, "PRC_VALOR_FIN_MANTENIMIENTO");
     }
 }
