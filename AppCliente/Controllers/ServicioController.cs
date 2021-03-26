@@ -28,10 +28,10 @@ namespace AppCliente.Controllers
         }
 
 
-        public ActionResult Delete(int CODIGO)
+        public ActionResult Delete(int COD_SERVICIO)
         {
             NegServicio obj = new NegServicio();
-            obj.Eliminar(CODIGO.ToString());
+            obj.Eliminar(COD_SERVICIO.ToString());
             return RedirectToAction("Listar");
         }
 
@@ -44,19 +44,12 @@ namespace AppCliente.Controllers
         [HttpGet]
         public ActionResult Update(int COD_SERVICIO)
         {
-            List<SelectListItem> lstproductos = new List<SelectListItem>();
-            foreach (var item in getProducto())
-            {
-                lstproductos.Add(new SelectListItem() { Text = item.NOMBRE_PRODUCTO, Value = item.COD_PRODUCTO.ToString() });
-            }
-
             List<SelectListItem> lstmecanicos = new List<SelectListItem>();
             foreach (var item in getMecanico())
             {
-                lstproductos.Add(new SelectListItem() { Text = String.Concat(item.PRIMER_NOMBRE, item.PRIMER_APELLIDO), Value = item.NUM_IDENT_MEC.ToString() });
+                lstmecanicos.Add(new SelectListItem() { Text = String.Concat(item.PRIMER_NOMBRE, " ", item.PRIMER_APELLIDO), Value = item.NUM_IDENT_MEC.ToString() });
             }
 
-            ViewBag.productos = lstproductos;
             ViewBag.mecanicos = lstmecanicos;
             NegServicio obj = new NegServicio();
             ServicioBO dto = obj.Listar().FirstOrDefault(a => a.COD_SERVICIO == COD_SERVICIO);
@@ -65,27 +58,14 @@ namespace AppCliente.Controllers
 
         public ActionResult InsertServicio()
         {
-            List<SelectListItem> lstproductos = new List<SelectListItem>();
-            foreach (var item in getProducto())
-            {
-                lstproductos.Add(new SelectListItem() { Text = item.NOMBRE_PRODUCTO, Value = item.COD_PRODUCTO.ToString() });
-            }
-
             List<SelectListItem> lstmecanicos = new List<SelectListItem>();
             foreach (var item in getMecanico())
             {
-                lstproductos.Add(new SelectListItem() { Text = String.Concat(item.PRIMER_NOMBRE, item.PRIMER_APELLIDO), Value = item.NUM_IDENT_MEC.ToString() });
+                lstmecanicos.Add(new SelectListItem() { Text = String.Concat(item.PRIMER_NOMBRE, " ", item.PRIMER_APELLIDO), Value = item.NUM_IDENT_MEC.ToString() });
             }
 
-            ViewBag.productos = lstproductos;
             ViewBag.mecanicos = lstmecanicos;
             return View("InsertServicio", new ServicioBO());
-        }
-
-        private List<ProductoBO> getProducto()
-        {
-            NegProducto obj = new NegProducto();
-            return obj.Listar();
         }
 
         private List<MecanicoBO> getMecanico()

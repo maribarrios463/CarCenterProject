@@ -1,7 +1,58 @@
-﻿
-@{
-    ViewBag.Title = "Listar";
+﻿@model IEnumerable<Entity_Layer.ServicioBO>
+
+@{ ViewBag.Title = "Servicio"; }
+
+<h2>Servicios</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "InsertServicio")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COD_SERVICIO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NUM_IDENT_MEC)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OBSERVACION)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VALOR_MANO_OBRA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCUENTO)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COD_SERVICIO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUM_IDENT_MEC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OBSERVACION)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VALOR_MANO_OBRA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCUENTO)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "update", new { COD_SERVICIO = item.COD_SERVICIO }) |
+                @Html.ActionLink("Eliminar", "Delete", new { COD_SERVICIO = item.COD_SERVICIO })
+            </td>
+        </tr>
 }
 
-<h2>Listar</h2>
+</table>
+
 

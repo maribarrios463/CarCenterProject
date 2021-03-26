@@ -185,6 +185,7 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     NOMBRE                         TIPO                 DESCRIPCION
     ---------------------------------------------------------------------------------------------------------
     E_V_ACCION                    IN VARCHAR2         indica la accion a realizar (C = CREATE; R = READ; U = UPDATE; D = DELETE)
+    E_COD_SERVICIO                IN NUMBER           indica el codigo del servicio
     E_VALOR_MANO_OBRA             IN NUMBER           indica el valor de la mano de obra del servicio
     E_DESCUENTO                   IN NUMBER           indica el valor de descuento del servicio
     E_OBSERVACION                 IN VARCHAR2         indica la observacion del sertvicio
@@ -220,11 +221,10 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     E_FORMA_PAGO                  IN VARCHAR2           indica la forma de pago (CONTADO; CREDITO)
     E_MEDIO_PAGO                  IN VARCHAR2           indica el medio de pago (EFECTIVO; TARJETA DE CREDITO; TARJETA DE DEBITO; PSE)
     E_IVA                         IN NUMBER             indica el IVA de la facturacion
-    E_VALOR_TOTAL_FACT            IN NUMBER             indica el valor total facturado
     E_NUM_IDENT_CLI               IN VARCHAR2           indica el numero de identificacion del cliente
-    E_NUM_IDENT_MEC               IN VARCHAR2           indica el numero de identificacion del mecanico responsable
-    E_NOMBRE_ALMACEN              IN VARCHAR2           indica el nombre del almacen
-    E_NUM_VEHICULO                IN VARCHAR2           indica el numeto del motor del vehiculo
+    E_COD_SUCURSAL                IN NUMBER             indica el codigo de la sucursal
+    E_VALOR_MINIMO                IN NUMBER             indica el valor minimo de la factura
+    E_VALOR_MAXIMO                IN NUMBER             indica el valor maximo de la factura
     S_CUR_CONSULTA_INFO           OUT SYS_REFCURSOR     indica la informacion consultada
     S_N_COD_SAL                   OUT NUMBER            indica el codigo de salida (0 = Exitoso, 0 <> Error).
     S_V_MSJ_SAL                   OUT VARCHAR2          indica la descripcion de la ejecucion.
@@ -245,9 +245,8 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
  /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
     FECHA CREACION           : 24 de MARZO de 2021
-    PROGRAMA                 : PRC_CRUD_FACTURA_CARCENTER
-    DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE) 
-                               para la tabla FACTURA
+    PROGRAMA                 : PRC_DETALLE_PROD_CARCENTER
+    DESCRIPCION              : Procedimiento que permite almacenar el detalle de los productos y cantidad vendida
     AUTOR                    : Marielena Barrios Reinoso
     
     ---------------------------------------------------------------------------------------------------------
@@ -266,9 +265,8 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
     FECHA CREACION           : 24 de MARZO de 2021
-    PROGRAMA                 : PRC_CRUD_FACTURA_CARCENTER
-    DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE) 
-                               para la tabla FACTURA
+    PROGRAMA                 : PRC_DETALLE_SER_CARCENTER
+    DESCRIPCION              : Procedimiento que permite almacenar el detalle de servicios
     AUTOR                    : Marielena Barrios Reinoso
     
     ---------------------------------------------------------------------------------------------------------
@@ -281,7 +279,25 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     PROCEDURE PRC_DETALLE_SER_CARCENTER (E_COD_SERVICIO IN NUMBER,
                                          S_N_COD_SAL    OUT NUMBER,
                                          S_V_MSJ_SAL    OUT VARCHAR2);
-                                          
+                                         
+   /* ---------------------------------------------------------------------------------------------------------
+    PROYECTO                 : CAR_CENTER_PROJECT
+    FECHA CREACION           : 24 de MARZO de 2021
+    PROGRAMA                 : PRC_VALOR_FIN_MANTENIMIENTO
+    DESCRIPCION              : Procedimiento que permite realizar el calculo final de la factura
+    AUTOR                    : Marielena Barrios Reinoso
+    ---------------------------------------------------------------------------------------------------------
+    NOMBRE                         TIPO                 DESCRIPCION
+    ---------------------------------------------------------------------------------------------------------
+    E_COD_SERVICIO                IN NUMBER             indica el codigo del servicio
+    S_N_COD_SAL                   OUT NUMBER            indica el codigo de salida (0 = Exitoso, 0 <> Error).
+    S_V_MSJ_SAL                   OUT VARCHAR2          indica la descripcion de la ejecucion.
+    ------------------------------------------------------------------------------------------------------------ */
+    
+    PROCEDURE PRC_VALOR_FIN_MANTENIMIENTO (E_NUM_FACTURA IN NUMBER,
+                                           S_N_COD_SAL   OUT NUMBER,
+                                           S_V_MSJ_SAL   OUT VARCHAR2);   
+                                           
  /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
     FECHA CREACION           : 24 de MARZO de 2021
@@ -770,7 +786,7 @@ BEGIN
          
          IF E_COD_SUCURSAL IS NOT NULL THEN
            V_SQL := 'SELECT COD_SUCURSAL,
-                            NOMBRE_ALMACEN,
+                            NOMBRE_SUCURSAL,
                             DIRECCION,
                             TELEFONO_CONTACTO,
                             CIUDAD
@@ -778,7 +794,7 @@ BEGIN
                       WHERE COD_SUCURSAL = '|| E_COD_SUCURSAL;
          ELSE
            V_SQL := 'SELECT COD_SUCURSAL,
-                            NOMBRE_ALMACEN,
+                            NOMBRE_SUCURSAL,
                             DIRECCION,
                             TELEFONO_CONTACTO,
                             CIUDAD
@@ -874,8 +890,8 @@ BEGIN
    BEGIN
   
    --Validacion de mayusculas
-    SELECT UPPER (E_V_ACCION), UPPER (E_NOMBRE_PRODUCTO), UPPER (E_VALOR_UNITARIO), UPPER (E_CANTIDAD_PROD), UPPER (E_DESCUENTO)
-      INTO V_TIPO_ACCION, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO
+    SELECT UPPER (E_V_ACCION), UPPER(E_COD_PRODUCTO), UPPER (E_NOMBRE_PRODUCTO), UPPER (E_VALOR_UNITARIO), UPPER (E_CANTIDAD_PROD), UPPER (E_DESCUENTO)
+      INTO V_TIPO_ACCION, V_COD_PRODUCTO, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO
       FROM DUAL;
     
     --Validacion valores validos para las acciones validas
@@ -1058,7 +1074,7 @@ BEGIN
        IF E_PLACA IS NOT NULL THEN
          
            V_SQL := 'SELECT PLACA,
-                            NOMBRE, 
+                            TIPO_VEHICULO, 
                             MODELO,
                             MARCA,
                             NUM_MOTOR
@@ -1066,11 +1082,11 @@ BEGIN
                       WHERE PLACA = '|| E_PLACA;
          ELSE
            V_SQL := 'SELECT PLACA,
-                      NOMBRE, 
-                      MODELO,
-                      MARCA,
-                      NUM_MOTOR
-                 FROM VEHICULO';
+                            TIPO_VEHICULO, 
+                            MODELO,
+                            MARCA,
+                            NUM_MOTOR
+                       FROM VEHICULO';
          END IF;
      
 
@@ -1511,6 +1527,60 @@ BEGIN
     
   END PRC_DETALLE_SER_CARCENTER;
   
+   PROCEDURE PRC_VALOR_FIN_MANTENIMIENTO (E_NUM_FACTURA IN NUMBER,
+                                          S_N_COD_SAL   OUT NUMBER,
+                                          S_V_MSJ_SAL   OUT VARCHAR2) AS
+
+    V_VALOR_TOTAL_FACT  FACTURA.VALOR_TOTAL_FACT%TYPE;
+    V_VALOR_TOTAL_PROD  PRODUCTO.VALOR_UNITARIO%TYPE;
+    V_VALOR_MANO_OBRA   DESCRIPCION_SERVICIO.VALOR_MANO_OBRA%TYPE;
+    V_VALOR_PARCIAL_FAC NUMBER;
+
+    BEGIN
+      BEGIN
+        
+        -- validaciones de parametros de entrada
+        IF (E_NUM_FACTURA IS NULL)  THEN
+          S_N_COD_SAL := -1;
+          S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
+        END IF;
+        
+        SELECT SUM(VALOR_MANO_OBRA) VALOR_MANO_OBRA
+          INTO V_VALOR_MANO_OBRA
+          FROM DESCRIPCION_SERVICIO DS, DETALLE_DES_SERVICIO DT, FACTURA FA
+         WHERE DS.COD_SERVICIO = DT.COD_SERVICIO
+           AND DT.NUM_FACTURA = E_NUM_FACTURA;
+          
+        SELECT SUM(P.VALOR_UNITARIO * DP.CAN_PRODUCTO_VENDIDO) VALOR_TOTAL_PROD
+          INTO V_VALOR_TOTAL_PROD
+          FROM PRODUCTO P, DETALLE_PRODUCTO DP, FACTURA FA
+         WHERE P.COD_PRODUCTO = DP.COD_PRODUCTO
+           AND DP.NUM_FACTURA = E_NUM_FACTURA;
+         
+         V_VALOR_PARCIAL_FAC := V_VALOR_MANO_OBRA + V_VALOR_TOTAL_PROD;
+          
+        SELECT TO_NUMBER(V_VALOR_PARCIAL_FAC * (FA.IVA / 100) + V_VALOR_PARCIAL_FAC)
+          INTO V_VALOR_TOTAL_FACT
+          FROM FACTURA FA
+         WHERE FA.NUM_FACTURA = E_NUM_FACTURA;
+         
+         UPDATE FACTURA SET VALOR_TOTAL_FACT = V_VALOR_TOTAL_FACT
+                      WHERE NUM_FACTURA = E_NUM_FACTURA;        
+        COMMIT;
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+      
+        EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          S_N_COD_SAL := -2;
+          S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_VALOR_FIN_MANTENIMIENTO';
+          
+        WHEN OTHERS THEN
+          S_N_COD_SAL := -99;
+          S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
+       END;
+  END PRC_VALOR_FIN_MANTENIMIENTO;
+  
   PROCEDURE PRC_CONSULTA_COMPRAS_CLIENTE (S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                           S_N_COD_SAL         OUT NUMBER,
                                           S_V_MSJ_SAL         OUT VARCHAR2) AS
@@ -1549,24 +1619,23 @@ BEGIN
                                     S_N_COD_SAL         OUT NUMBER,
                                     S_V_MSJ_SAL         OUT VARCHAR2) AS
   BEGIN
-    null;
-   /* OPEN S_CUR_CONSULTA_INFO FOR 
+    OPEN S_CUR_CONSULTA_INFO FOR 
        SELECT PRD.COD_PRODUCTO, PRD.NOMBRE_PRODUCTO
-         FROM PRODUCTO PRD, DESCRIPCION_SERVICIO DS, FACTURA FA
-        WHERE PRD.COD_PRODUCTO = DS.COD_PRODUCTO
-          AND DS.COD_SERVICIO = FA.COD_SERVICIO
+         FROM PRODUCTO PRD, DETALLE_PRODUCTO DP, FACTURA FA
+        WHERE PRD.COD_PRODUCTO = DP.COD_PRODUCTO
+          AND DP.NUM_FACTURA = FA.NUM_FACTURA
           AND TRUNC(FA.FECHA_FACTURA) >= TO_CHAR(SYSDATE-30,'DD/MM/YYYY') 
           AND TRUNC(FA.FECHA_FACTURA) <= TO_CHAR(SYSDATE,'DD/MM/YYYY') 
         GROUP BY PRD.COD_PRODUCTO, PRD.NOMBRE_PRODUCTO 
-       HAVING SUM(DS.CAN_PRODUCTO_VENDIDO) = 100;*/ 
-        
+        HAVING SUM(DP.CAN_PRODUCTO_VENDIDO) = 100; 
+     
      S_N_COD_SAL := 0;
      S_V_MSJ_SAL := 'Proceso Exitoso.';
   
      EXCEPTION
       WHEN NO_DATA_FOUND THEN
         S_N_COD_SAL := -1;
-        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_COMPRAS_CLIENTE';
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_PRODUCTOS';
         
       WHEN OTHERS THEN
         S_N_COD_SAL := -99;
@@ -1578,18 +1647,15 @@ BEGIN
                                     S_N_COD_SAL         OUT NUMBER,
                                     S_V_MSJ_SAL         OUT VARCHAR2) AS
   BEGIN
-  NULL;
-   /* OPEN S_CUR_CONSULTA_INFO FOR 
+     OPEN S_CUR_CONSULTA_INFO FOR 
        SELECT AL.NOMBRE_SUCURSAL, AL.DIRECCION, AL.CIUDAD
-         FROM PRODUCTO PRD, DESCRIPCION_SERVICIO DS, FACTURA FA, SUCURSAL AL, DETALLE_PRODUCTO DP
-        WHERE PRD.COD_PRODUCTO = DS.COD_PRODUCTO
-          AND DS.COD_SERVICIO = FA.COD_SERVICIO
-          AND PRD.COD_PRODUCTO = DP.COD_PRODUCTO
+         FROM PRODUCTO PRD, FACTURA FA, SUCURSAL AL, DETALLE_PRODUCTO DP
+        WHERE PRD.COD_PRODUCTO = DP.COD_PRODUCTO
           AND FA.COD_SUCURSAL = AL.COD_SUCURSAL
           AND TRUNC(FA.FECHA_FACTURA) >= TO_CHAR(SYSDATE-60,'DD/MM/YYYY') 
           AND TRUNC(FA.FECHA_FACTURA) <= TO_CHAR(SYSDATE,'DD/MM/YYYY') 
         GROUP BY AL.NOMBRE_SUCURSAL, AL.DIRECCION, AL.CIUDAD 
-       HAVING SUM(DP.CAN_PRODUCTO_VENDIDO) >= 100; */
+       HAVING SUM(DP.CAN_PRODUCTO_VENDIDO) >= 100; 
         
      S_N_COD_SAL := 0;
      S_V_MSJ_SAL := 'Proceso Exitoso.';
@@ -1597,7 +1663,7 @@ BEGIN
      EXCEPTION
       WHEN NO_DATA_FOUND THEN
         S_N_COD_SAL := -1;
-        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_COMPRAS_CLIENTE';
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_ALMACENES';
         
       WHEN OTHERS THEN
         S_N_COD_SAL := -99;
@@ -1630,15 +1696,13 @@ BEGIN
      EXCEPTION
       WHEN NO_DATA_FOUND THEN
         S_N_COD_SAL := -1;
-        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_COMPRAS_CLIENTE';
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CONSULTA_MANTENIMIENTOS';
         
       WHEN OTHERS THEN
         S_N_COD_SAL := -99;
         S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
         
   END PRC_CONSULTA_MANTENIMIENTOS; 
-  
-  
   
 END PKG_CAR_CENTER_PROJECT;
 /
