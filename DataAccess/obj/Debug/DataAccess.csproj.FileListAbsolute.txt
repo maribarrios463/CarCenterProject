@@ -27,3 +27,13 @@ C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\DataAcces
 C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
 C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\DataAccess\obj\Debug\DataAccess.dll
 C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\DataAccess\obj\Debug\DataAccess.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\bin\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\bin\Debug\DataAccess.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\bin\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\bin\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\obj\Debug\DataAccess.csprojAssemblyReference.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\obj\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\obj\Debug\DataAccess.csproj.CopyComplete
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\obj\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Repositorio\CarCenterProject\DataAccess\obj\Debug\DataAccess.pdb

@@ -28,10 +28,10 @@ namespace AppCliente.Controllers
         }
 
 
-        public ActionResult Delete(string PRODUCTO)
+        public ActionResult Delete(int ProductoId)
         {
             NegProducto obj = new NegProducto();
-            obj.Eliminar(PRODUCTO);
+            obj.Eliminar(ProductoId.ToString());
             return RedirectToAction("Listar");
         }
 
@@ -42,10 +42,10 @@ namespace AppCliente.Controllers
         }
 
         [HttpGet]
-        public ActionResult Update(string producto)
+        public ActionResult Update(int ProductoId)
         {
             NegProducto obj = new NegProducto();
-            ProductoBO dto = obj.Listar().FirstOrDefault(a => a.NOMBRE_PRODUCTO == producto);
+            ProductoBO dto = obj.Listar().FirstOrDefault(a => a.COD_PRODUCTO == ProductoId);
             return View("update", dto);
         }
 

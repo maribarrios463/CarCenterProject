@@ -52,12 +52,13 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameClient, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameProducto, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.D;
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE_PRODUCTO", OracleDbType.Varchar2)).Value = dto;
+                        command.Parameters.Add(new OracleParameter("E_CODIGO_PRODUCTO", OracleDbType.Decimal)).Value = dto;
+                        command.Parameters.Add(new OracleParameter("E_NOMBRE_PRODUCTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_VALOR_UNITARIO", OracleDbType.Decimal)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_CANTIDAD_PROD", OracleDbType.Decimal)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_DESCUENTO", OracleDbType.Decimal)).Value = null;
@@ -86,7 +87,7 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameClient, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameProducto, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.C.ToString();
@@ -120,7 +121,7 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameClient, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameProducto, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.R;

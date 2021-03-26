@@ -1,7 +1,58 @@
-﻿
-@{
-    ViewBag.Title = "Listar";
+﻿@model IEnumerable<Entity_Layer.ProductoBO>
+
+@{ ViewBag.Title = "Productos"; }
+
+<h2>Productos</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "InsertProducto")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.COD_PRODUCTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOMBRE_PRODUCTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CANTIDAD_PROD)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DESCUENTO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VALOR_UNITARIO)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.COD_PRODUCTO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NOMBRE_PRODUCTO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CANTIDAD_PROD)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DESCUENTO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VALOR_UNITARIO)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "update", new { ProductoId = item.COD_PRODUCTO }) |
+                @Html.ActionLink("Eliminar", "Delete", new { ProductoID = item.COD_PRODUCTO })
+            </td>
+        </tr>
 }
 
-<h2>Listar</h2>
+</table>
+
 
