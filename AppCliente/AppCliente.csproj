@@ -165,7 +165,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controllers\AlmacenController.cs" />
+    <Compile Include="Controllers\SucursalController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -206,9 +206,9 @@
     <Content Include="Views\Client\Listar.cshtml" />
     <Content Include="Views\Client\update.cshtml" />
     <Content Include="Views\Client\InsertClient.cshtml" />
-    <Content Include="Views\Almacen\InsertAlmacen.cshtml" />
-    <Content Include="Views\Almacen\Listar.cshtml" />
-    <Content Include="Views\Almacen\update.cshtml" />
+    <Content Include="Views\Sucursal\InsertSucursal.cshtml" />
+    <Content Include="Views\Sucursal\Listar.cshtml" />
+    <Content Include="Views\Sucursal\update.cshtml" />
     <Content Include="Views\Producto\InsertProducto.cshtml" />
     <Content Include="Views\Producto\Listar.cshtml" />
     <Content Include="Views\Producto\update.cshtml" />

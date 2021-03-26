@@ -17,7 +17,7 @@ namespace DataAccess.Utils
 
         public string spNameMecanico = String.Concat(packageName, "PRC_CRUD_MECAN_CARCENTER");
 
-        public string spNameAlmacen = String.Concat(packageName, "PRC_CRUD_ALMACEN_CARCENTER");
+        public string spNameSucursal = String.Concat(packageName, "PRC_CRUD_SUCURSAL_CARCENTER");
 
         public string spNameProducto = String.Concat(packageName, "PRC_CRUD_PRODUCTO_CARCENTER");
 

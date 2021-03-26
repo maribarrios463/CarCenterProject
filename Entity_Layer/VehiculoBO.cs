@@ -10,14 +10,17 @@ namespace Entity_Layer
 {
     public class VehiculoBO
     {
-        [Display(Name = "Código Vehiculo")]
-        public int COD_VEHICULO { get; set; }
+        [Display(Name = "Placa")]
+        public int PLACA { get; set; }
         [Required, Display(Name = "Tipo")]
-        public string NOMBRE { get; set; }
+        public string TIPO_VEHICULO { get; set; }
         [Required, Display(Name = "Modelo")]
         public string MODELO { get; set; }
         [Display(Name = "Marca")]
         public string MARCA { get; set; }
-       
+        [Display(Name = "Número Motor")]
+        public string NUM_MOTOR { get; set; }
+        
+
     }
 }

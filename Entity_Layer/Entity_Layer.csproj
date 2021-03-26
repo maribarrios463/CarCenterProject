@@ -83,7 +83,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlmacenBO.cs" />
+    <Compile Include="SucursalBO.cs" />
     <Compile Include="ClienteBO.cs" />
     <Compile Include="FacturaBO.cs" />
     <Compile Include="MecanicoBO.cs" />

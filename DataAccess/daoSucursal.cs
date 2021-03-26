@@ -8,10 +8,10 @@ using Oracle.ManagedDataAccess.Client;
 
 namespace DataAccess
 {
-    public class daoAlmacen : OracleConexion, IOperacionCrud<AlmacenBO>
+    public class daoSucursal : OracleConexion, IOperacionCrud<SucursalBO>
     {
         providerStoreProcedures providerStoreProcedure = new providerStoreProcedures();
-        public string Actualizar(AlmacenBO dto)
+        public string Actualizar(SucursalBO dto)
         {
             string result = string.Empty;
             try
@@ -19,11 +19,11 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameAlmacen, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameSucursal, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.U.ToString();
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE_ALMACEN", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
+                        command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Decimal)).Value = dto.TELEFONO_CONTACTO;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = dto.DIRECCION;
                         command.Parameters.Add(new OracleParameter("E_CIUDAD", OracleDbType.Varchar2)).Value = dto.CIUDAD;
@@ -52,12 +52,12 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameAlmacen, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameSucursal, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.D;
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE_ALMACEN", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_CIUDAD", OracleDbType.Varchar2)).Value = null;
@@ -78,7 +78,7 @@ namespace DataAccess
             return result;
         }
 
-        public string Insertar(AlmacenBO dto)
+        public string Insertar(SucursalBO dto)
         {
             string result = string.Empty;
             try
@@ -86,11 +86,11 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameAlmacen, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameSucursal, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.C.ToString();
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE_ALMACEN", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
+                        command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Decimal)).Value = dto.TELEFONO_CONTACTO;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = dto.DIRECCION;
                         command.Parameters.Add(new OracleParameter("E_CIUDAD", OracleDbType.Varchar2)).Value = dto.CIUDAD;
@@ -111,20 +111,20 @@ namespace DataAccess
             return result;
         }
 
-        public List<AlmacenBO> Listar()
+        public List<SucursalBO> Listar()
         {
-            List<AlmacenBO> list = new List<AlmacenBO>();
-            AlmacenBO dto = null;
+            List<SucursalBO> list = new List<SucursalBO>();
+            SucursalBO dto = null;
             try
             {
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameAlmacen, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameSucursal, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.R;
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE_ALMACEN", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_CIUDAD", OracleDbType.Varchar2)).Value = null;
@@ -137,9 +137,9 @@ namespace DataAccess
                         {
                             while (dr.Read())
                             {
-                                dto = new AlmacenBO();
+                                dto = new SucursalBO();
                                 dto.COD_SUCURSAL = Convert.ToInt32(dr["COD_SUCURSAL"].ToString());
-                                dto.NOMBRE_ALMACEN = Convert.ToString(dr["NOMBRE_ALMACEN"]);
+                                dto.NOMBRE_ALMACEN = Convert.ToString(dr["E_NOMBRE_SUCURSAL"]);
                                 dto.TELEFONO_CONTACTO = Convert.ToInt32(dr["TELEFONO_CONTACTO"]);
                                 dto.DIRECCION = Convert.ToString(dr["DIRECCION"]);
                                 dto.CIUDAD = Convert.ToString(dr["CIUDAD"]);

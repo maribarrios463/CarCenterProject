@@ -82,7 +82,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NegAlmacen.cs" />
+    <Compile Include="NegSucursal.cs" />
     <Compile Include="NegCliente.cs" />
     <Compile Include="NegFactura.cs" />
     <Compile Include="NegMecanico.cs" />

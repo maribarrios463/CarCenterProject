@@ -23,6 +23,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.U.ToString();
+                        command.Parameters.Add(new OracleParameter("E_COD_PRODUCTO", OracleDbType.Decimal)).Value = dto.COD_PRODUCTO;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_PRODUCTO", OracleDbType.Varchar2)).Value = dto.NOMBRE_PRODUCTO;
                         command.Parameters.Add(new OracleParameter("E_VALOR_UNITARIO", OracleDbType.Decimal)).Value = dto.VALOR_UNITARIO;
                         command.Parameters.Add(new OracleParameter("E_CANTIDAD_PROD", OracleDbType.Decimal)).Value = dto.CANTIDAD_PROD;
@@ -91,6 +92,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.C.ToString();
+                        command.Parameters.Add(new OracleParameter("E_COD_PRODUCTO", OracleDbType.Decimal)).Value = dto.COD_PRODUCTO;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_PRODUCTO", OracleDbType.Varchar2)).Value = dto.NOMBRE_PRODUCTO;
                         command.Parameters.Add(new OracleParameter("E_VALOR_UNITARIO", OracleDbType.Decimal)).Value = dto.VALOR_UNITARIO;
                         command.Parameters.Add(new OracleParameter("E_CANTIDAD_PROD", OracleDbType.Decimal)).Value = dto.CANTIDAD_PROD;
@@ -125,6 +127,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.R;
+                        command.Parameters.Add(new OracleParameter("E_COD_PRODUCTO", OracleDbType.Decimal)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_PRODUCTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_VALOR_UNITARIO", OracleDbType.Decimal)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_CANTIDAD_PROD", OracleDbType.Decimal)).Value = null;

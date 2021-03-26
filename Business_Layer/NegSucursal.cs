@@ -8,27 +8,27 @@ using System.Threading.Tasks;
 
 namespace Business_Layer
 {
-    public class NegAlmacen
+    public class NegSucursal
     {
-        public string Actualizar(AlmacenBO dto)
+        public string Actualizar(SucursalBO dto)
         {
-            daoAlmacen dao = new daoAlmacen();
+            daoSucursal dao = new daoSucursal();
             return dao.Actualizar(dto);
         }
 
         public string Eliminar(string dto)
         {
-            daoAlmacen dao = new daoAlmacen();
+            daoSucursal dao = new daoSucursal();
             return dao.Eliminar(dto);
         }
-        public string Insert(AlmacenBO dto)
+        public string Insert(SucursalBO dto)
         {
-            daoAlmacen dao = new daoAlmacen();
+            daoSucursal dao = new daoSucursal();
             return dao.Insertar(dto);
         }
-        public List<AlmacenBO> Listar()
+        public List<SucursalBO> Listar()
         {
-            daoAlmacen dao = new daoAlmacen();
+            daoSucursal dao = new daoSucursal();
             return dao.Listar();
         }
 

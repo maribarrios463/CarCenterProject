@@ -6,23 +6,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace AppCliente.Views.Almacen
+namespace AppCliente.Views.Sucursal
 {
-    public class AlmacenController : Controller
+    public class SucursalController : Controller
     {
         // GET: Almacen
         [HttpPost]
-        public ActionResult InsertAlmacen(AlmacenBO dto)
+        public ActionResult InsertSucursal(SucursalBO dto)
         {
-            NegAlmacen obj = new NegAlmacen();
+            NegSucursal obj = new NegSucursal();
             obj.Insert(dto);
             return RedirectToAction("Listar");
         }
 
         [HttpPost]
-        public ActionResult Update(AlmacenBO dto)
+        public ActionResult Update(SucursalBO dto)
         {
-            NegAlmacen obj = new NegAlmacen();
+            NegSucursal obj = new NegSucursal();
             obj.Actualizar(dto);
             return RedirectToAction("Listar");
         }
@@ -30,28 +30,28 @@ namespace AppCliente.Views.Almacen
 
         public ActionResult Delete(string AlmacenID)
         {
-            NegAlmacen obj = new NegAlmacen();
+            NegSucursal obj = new NegSucursal();
             obj.Eliminar(AlmacenID);
             return RedirectToAction("Listar");
         }
 
         public ActionResult Listar()
         {
-            NegAlmacen obj = new NegAlmacen();
+            NegSucursal obj = new NegSucursal();
             return View(obj.Listar());
         }
 
         [HttpGet]
         public ActionResult Update(int AlmacenID)
         {
-            NegAlmacen obj = new NegAlmacen();
-            AlmacenBO dto = obj.Listar().FirstOrDefault(a => a.COD_SUCURSAL == AlmacenID);
+            NegSucursal obj = new NegSucursal();
+            SucursalBO dto = obj.Listar().FirstOrDefault(a => a.COD_SUCURSAL == AlmacenID);
             return View("update", dto);
         }
 
-        public ActionResult InsertAlmacen()
+        public ActionResult InsertSucursal()
         {
-            return View("InsertAlmacen", new AlmacenBO());
+            return View("InsertSucursal", new SucursalBO());
         }
 
     }

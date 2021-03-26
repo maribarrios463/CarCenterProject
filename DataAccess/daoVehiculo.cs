@@ -23,10 +23,12 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.U.ToString();
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE", OracleDbType.Varchar2)).Value = dto.NOMBRE;
+                        command.Parameters.Add(new OracleParameter("E_PLACA", OracleDbType.Varchar2)).Value = dto.PLACA; 
+                        command.Parameters.Add(new OracleParameter("E_TIPO_VEHICULO", OracleDbType.Varchar2)).Value = dto.TIPO_VEHICULO;
                         command.Parameters.Add(new OracleParameter("E_MODELO", OracleDbType.Varchar2)).Value = dto.MODELO;
                         command.Parameters.Add(new OracleParameter("E_MARCA", OracleDbType.Varchar2)).Value = dto.MARCA;
-                    
+                        command.Parameters.Add(new OracleParameter("E_NUM_MOTOR", OracleDbType.Varchar2)).Value = dto.NUM_MOTOR;
+
                         command.Parameters.Add(new OracleParameter("S_CUR_CONSULTA_INFO", OracleDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
                         command.Parameters.Add(new OracleParameter("S_N_COD_SAL", OracleDbType.Decimal)).Direction = System.Data.ParameterDirection.Output;
                         command.Parameters.Add(new OracleParameter("S_V_MSJ_SAL", OracleDbType.Varchar2, 4000)).Direction = System.Data.ParameterDirection.Output;
@@ -56,9 +58,11 @@ namespace DataAccess
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.D;
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE", OracleDbType.Varchar2)).Value = dto;
+                        command.Parameters.Add(new OracleParameter("E_PLACA", OracleDbType.Varchar2)).Value = dto;
+                        command.Parameters.Add(new OracleParameter("E_TIPO_VEHICULO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_MODELO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_MARCA", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_NUM_MOTOR", OracleDbType.Varchar2)).Value = null;
 
                         command.Parameters.Add(new OracleParameter("S_CUR_CONSULTA_INFO", OracleDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
                         command.Parameters.Add(new OracleParameter("S_N_COD_SAL", OracleDbType.Decimal)).Direction = System.Data.ParameterDirection.Output;
@@ -84,13 +88,15 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameClient, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameVehiculo, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.C.ToString();
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE", OracleDbType.Varchar2)).Value = dto.NOMBRE;
+                        command.Parameters.Add(new OracleParameter("E_PLACA", OracleDbType.Varchar2)).Value = dto.PLACA;
+                        command.Parameters.Add(new OracleParameter("E_TIPO_VEHICULO", OracleDbType.Varchar2)).Value = dto.TIPO_VEHICULO;
                         command.Parameters.Add(new OracleParameter("E_MODELO", OracleDbType.Varchar2)).Value = dto.MODELO;
                         command.Parameters.Add(new OracleParameter("E_MARCA", OracleDbType.Varchar2)).Value = dto.MARCA;
+                        command.Parameters.Add(new OracleParameter("E_NUM_MOTOR", OracleDbType.Varchar2)).Value = dto.NUM_MOTOR;
 
                         command.Parameters.Add(new OracleParameter("S_CUR_CONSULTA_INFO", OracleDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
                         command.Parameters.Add(new OracleParameter("S_N_COD_SAL", OracleDbType.Decimal)).Direction = System.Data.ParameterDirection.Output;
@@ -117,13 +123,15 @@ namespace DataAccess
                 using (OracleConnection cn = new OracleConnection(strOracle))
                 {
                     cn.Open();
-                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameClient, cn))
+                    using (OracleCommand command = new OracleCommand(providerStoreProcedure.spNameVehiculo, cn))
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.R;
-                        command.Parameters.Add(new OracleParameter("E_NOMBRE", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_PLACA", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_TIPO_VEHICULO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_MODELO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_MARCA", OracleDbType.Varchar2)).Value = null;
+                        command.Parameters.Add(new OracleParameter("E_NUM_MOTOR", OracleDbType.Varchar2)).Value = null;
 
                         command.Parameters.Add(new OracleParameter("S_CUR_CONSULTA_INFO", OracleDbType.RefCursor)).Direction = System.Data.ParameterDirection.Output;
                         command.Parameters.Add(new OracleParameter("S_N_COD_SAL", OracleDbType.Decimal)).Direction = System.Data.ParameterDirection.Output;
@@ -134,10 +142,11 @@ namespace DataAccess
                             while (dr.Read())
                             {
                                 dto = new VehiculoBO();
-                                dto.COD_VEHICULO = Convert.ToInt32(dr["COD_VEHICULO"].ToString());
-                                dto.NOMBRE = Convert.ToString( dr["NOMBRE"]);
+                                dto.PLACA = Convert.ToInt32(dr["PLACA"].ToString());
+                                dto.TIPO_VEHICULO = Convert.ToString( dr["TIPO_VEHICULO"]);
                                 dto.MARCA = Convert.ToString(dr["MARCA"]);
                                 dto.MODELO = Convert.ToString(dr["MODELO"]);
+                                dto.NUM_MOTOR = Convert.ToString(dr["NUM_MOTOR"]);
                                 list.Add(dto);
                             }
                         }

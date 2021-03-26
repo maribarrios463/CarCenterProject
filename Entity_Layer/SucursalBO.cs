@@ -7,11 +7,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Entity_Layer
 {
-    public class AlmacenBO
+    public class SucursalBO
     {
         [Display(Name = "Código Sucursal")]
         public int COD_SUCURSAL { get; set; }
-        [Required, Display(Name = "Nombre Almacen")]
+        [Required, Display(Name = "Nombre Sucursal")]
         public string NOMBRE_ALMACEN { get; set; }
         [Required, Display(Name = "Dirección")]
         public string DIRECCION { get; set; }

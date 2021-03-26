@@ -85,31 +85,32 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
   /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
     FECHA CREACION           : 24 de MARZO de 2021
-    PROGRAMA                 : PRC_CRUD_ALMACEN_CARCENTER
+    PROGRAMA                 : PRC_CRUD_SUCURSAL_CARCENTER
     DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE; D = DELETE) 
-                               para la tabla ALMACEN
+                               para la tabla SUCURSAL
     AUTOR                    : Marielena Barrios Reinoso
-    
     ---------------------------------------------------------------------------------------------------------
     NOMBRE                         TIPO                 DESCRIPCION
     ---------------------------------------------------------------------------------------------------------
     E_V_ACCION                    IN VARCHAR2         indica la accion a realizar (C = CREATE; R = READ; U = UPDATE; D = DELETE)
-    E_NOMBRE_ALMACEN              IN VARCHAR2         indica el nombre del almacen
-    E_TELEFONO_CONTACTO           IN NUMBER           indica el numero de contacto del almacen
-    E_DIRECCION                   IN VARCHAR2         indica la direccion del almacen
-    E_CIUDAD                      IN VARCHAR2         indica la ciudad del almacen
+    E_COD_SUCURSAL                IN NUMBER           indica el codigo de la sucursal
+    E_NOMBRE_SUCURSAL             IN VARCHAR2         indica el nombre de la sucursal
+    E_TELEFONO_CONTACTO           IN NUMBER           indica el numero de contacto de la sucursal
+    E_DIRECCION                   IN VARCHAR2         indica la direccion de la sucursal
+    E_CIUDAD                      IN VARCHAR2         indica la ciudad de la sucursal
     S_CUR_CONSULTA_INFO           OUT SYS_REFCURSOR   indica la informacion consultada
     S_N_COD_SAL                   OUT NUMBER          indica el codigo de salida (0 = Exitoso, 0 <> Error).
     S_V_MSJ_SAL                   OUT VARCHAR2        indica la descripcion de la ejecucion.
     ------------------------------------------------------------------------------------------------------------ */
-    PROCEDURE PRC_CRUD_ALMACEN_CARCENTER (E_V_ACCION          IN VARCHAR2,
-                                          E_NOMBRE_ALMACEN    IN VARCHAR2, 
-                                          E_TELEFONO_CONTACTO IN VARCHAR2, 
-                                          E_DIRECCION         IN VARCHAR2, 
-                                          E_CIUDAD            IN VARCHAR2,
-                                          S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
-                                          S_N_COD_SAL         OUT NUMBER,
-                                          S_V_MSJ_SAL         OUT VARCHAR2);  
+    PROCEDURE PRC_CRUD_SUCURSAL_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                           E_COD_SUCURSAL      IN NUMBER,
+                                           E_NOMBRE_SUCURSAL   IN VARCHAR2, 
+                                           E_TELEFONO_CONTACTO IN VARCHAR2, 
+                                           E_DIRECCION         IN VARCHAR2, 
+                                           E_CIUDAD            IN VARCHAR2,
+                                           S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
+                                           S_N_COD_SAL         OUT NUMBER,
+                                           S_V_MSJ_SAL         OUT VARCHAR2);  
 
     /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
@@ -118,11 +119,11 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE; D = DELETE) 
                                para la tabla PRODUCTO
     AUTOR                    : Marielena Barrios Reinoso
-    
     ---------------------------------------------------------------------------------------------------------
     NOMBRE                         TIPO                 DESCRIPCION
     ---------------------------------------------------------------------------------------------------------
     E_V_ACCION                    IN VARCHAR2         indica la accion a realizar (C = CREATE; R = READ; U = UPDATE; D = DELETE)
+    E_COD_PRODUCTO                IN NUMBER           indica el codigo del producto
     E_NOMBRE_PRODUCTO             IN VARCHAR2         indica el nombre del producto
     E_VALOR_UNITARIO              IN NUMBER           indica el valor unitario del producto
     E_CANTIDAD_PROD               IN NUMBER           indica la cantidad de los productos en stock
@@ -132,6 +133,7 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     S_V_MSJ_SAL                   OUT VARCHAR2        indica la descripcion de la ejecucion.
     ------------------------------------------------------------------------------------------------------------ */
     PROCEDURE PRC_CRUD_PRODUCTO_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                           E_COD_PRODUCTO      IN NUMBER,
                                            E_NOMBRE_PRODUCTO   IN VARCHAR2, 
                                            E_VALOR_UNITARIO    IN NUMBER, 
                                            E_CANTIDAD_PROD     IN NUMBER, 
@@ -152,17 +154,21 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     NOMBRE                         TIPO                 DESCRIPCION
     ---------------------------------------------------------------------------------------------------------
     E_V_ACCION                    IN VARCHAR2         indica la accion a realizar (C = CREATE; R = READ; U = UPDATE; D = DELETE)
-    E_NOMBRE                      IN VARCHAR2         indica el nombre del vehiculo
+    E_PLACA                       IN VARCHAR2         indaca la placa del vehiculo
+    E_TIPO_VEHICULO               IN VARCHAR2         indica el tipo del vehiculo
     E_MODELO                      IN VARCHAR2         indica el modelo del vehiculo
     E_MARCA                       IN VARCHAR2         indica la marca del vehiculo
+    E_NUM_MOTOR                   IN VARCHAR2         indica el numero del motor
     S_CUR_CONSULTA_INFO           OUT SYS_REFCURSOR   indica la informacion consultada
     S_N_COD_SAL                   OUT NUMBER          indica el codigo de salida (0 = Exitoso, 0 <> Error).
     S_V_MSJ_SAL                   OUT VARCHAR2        indica la descripcion de la ejecucion.
     ------------------------------------------------------------------------------------------------------------ */
     PROCEDURE PRC_CRUD_VEHICULO_CARCENTER (E_V_ACCION          IN VARCHAR2,
-                                           E_NOMBRE            IN VARCHAR2, 
+                                           E_PLACA             IN VARCHAR2,
+                                           E_TIPO_VEHICULO     IN VARCHAR2, 
                                            E_MODELO            IN VARCHAR2, 
-                                           E_MARCA             IN VARCHAR2, 
+                                           E_MARCA             IN VARCHAR2,
+                                           E_NUM_MOTOR         IN VARCHAR2,
                                            S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                            S_N_COD_SAL         OUT NUMBER,
                                            S_V_MSJ_SAL         OUT VARCHAR2); 
@@ -182,19 +188,16 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     E_VALOR_MANO_OBRA             IN NUMBER           indica el valor de la mano de obra del servicio
     E_DESCUENTO                   IN NUMBER           indica el valor de descuento del servicio
     E_OBSERVACION                 IN VARCHAR2         indica la observacion del sertvicio
-    E_NOM_PRODUCTO                IN VARCHAR2         indica el nombre del producto
-    E_CANT_VENDIDO                IN NUMBER           indica la cantidad de producto vendido
     E_NUM_IDENT_MEC               IN VARCHAR2         indica el numero de identificacion del mecanico responsable
     S_CUR_CONSULTA_INFO           OUT SYS_REFCURSOR   indica la informacion consultada
     S_N_COD_SAL                   OUT NUMBER          indica el codigo de salida (0 = Exitoso, 0 <> Error).
     S_V_MSJ_SAL                   OUT VARCHAR2        indica la descripcion de la ejecucion.
     ------------------------------------------------------------------------------------------------------------ */
     PROCEDURE PRC_CRUD_DESC_SERVI_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                             E_COD_SERVICIO      IN NUMBER,
                                              E_VALOR_MANO_OBRA   IN NUMBER, 
                                              E_DESCUENTO         IN NUMBER, 
                                              E_OBSERVACION       IN VARCHAR2, 
-                                             E_NOM_PRODUCTO      IN VARCHAR2,
-                                             E_CANT_VENDIDO      IN NUMBER,
                                              E_NUM_IDENT_MEC     IN VARCHAR2,
                                              S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                              S_N_COD_SAL         OUT NUMBER,
@@ -221,7 +224,7 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
     E_NUM_IDENT_CLI               IN VARCHAR2           indica el numero de identificacion del cliente
     E_NUM_IDENT_MEC               IN VARCHAR2           indica el numero de identificacion del mecanico responsable
     E_NOMBRE_ALMACEN              IN VARCHAR2           indica el nombre del almacen
-    E_NOMBRE_VEHICULO             IN VARCHAR2           indica el nombre del vehiculo
+    E_NUM_VEHICULO                IN VARCHAR2           indica el numeto del motor del vehiculo
     S_CUR_CONSULTA_INFO           OUT SYS_REFCURSOR     indica la informacion consultada
     S_N_COD_SAL                   OUT NUMBER            indica el codigo de salida (0 = Exitoso, 0 <> Error).
     S_V_MSJ_SAL                   OUT VARCHAR2          indica la descripcion de la ejecucion.
@@ -232,15 +235,53 @@ CREATE OR REPLACE PACKAGE PKG_CAR_CENTER_PROJECT AS
                                           E_FORMA_PAGO        IN VARCHAR2,
                                           E_MEDIO_PAGO        IN VARCHAR2,
                                           E_IVA               IN NUMBER,
-                                          E_VALOR_TOTAL_FACT  IN NUMBER,
                                           E_NUM_IDENT_CLI     IN VARCHAR2,
-                                          E_NUM_IDENT_MEC     IN VARCHAR2,
-                                          E_NOMBRE_ALMACEN    IN VARCHAR2,
-                                          E_NOMBRE_VEHICULO   IN VARCHAR2,
+                                          E_COD_SUCURSAL      IN NUMBER,
+                                          E_VALOR_MINIMO      IN NUMBER,
+                                          E_VALOR_MAXIMO      IN NUMBER,
                                           S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                           S_N_COD_SAL         OUT NUMBER,
                                           S_V_MSJ_SAL         OUT VARCHAR2);
-
+ /* ---------------------------------------------------------------------------------------------------------
+    PROYECTO                 : CAR_CENTER_PROJECT
+    FECHA CREACION           : 24 de MARZO de 2021
+    PROGRAMA                 : PRC_CRUD_FACTURA_CARCENTER
+    DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE) 
+                               para la tabla FACTURA
+    AUTOR                    : Marielena Barrios Reinoso
+    
+    ---------------------------------------------------------------------------------------------------------
+    NOMBRE                         TIPO                 DESCRIPCION
+    ---------------------------------------------------------------------------------------------------------
+    E_COD_PRODUCTO                IN NUMBER             indica el codigo del producto
+    E_CAN_PRODUCTO_VENDIDO        IN NUMBER             indica la cantidad de productos vendidos
+    S_N_COD_SAL                   OUT NUMBER            indica el codigo de salida (0 = Exitoso, 0 <> Error).
+    S_V_MSJ_SAL                   OUT VARCHAR2          indica la descripcion de la ejecucion.
+    ------------------------------------------------------------------------------------------------------------ */
+    PROCEDURE PRC_DETALLE_PROD_CARCENTER (E_COD_PRODUCTO         IN NUMBER,
+                                          E_CAN_PRODUCTO_VENDIDO IN NUMBER,
+                                          S_N_COD_SAL            OUT NUMBER,
+                                          S_V_MSJ_SAL            OUT VARCHAR2);
+    
+    /* ---------------------------------------------------------------------------------------------------------
+    PROYECTO                 : CAR_CENTER_PROJECT
+    FECHA CREACION           : 24 de MARZO de 2021
+    PROGRAMA                 : PRC_CRUD_FACTURA_CARCENTER
+    DESCRIPCION              : Procedimiento que permite realizar las diferentes acciones (C = CREATE; R = READ; U = UPDATE) 
+                               para la tabla FACTURA
+    AUTOR                    : Marielena Barrios Reinoso
+    
+    ---------------------------------------------------------------------------------------------------------
+    NOMBRE                         TIPO                 DESCRIPCION
+    ---------------------------------------------------------------------------------------------------------
+    E_COD_SERVICIO                IN NUMBER             indica el codigo del servicio
+    S_N_COD_SAL                   OUT NUMBER            indica el codigo de salida (0 = Exitoso, 0 <> Error).
+    S_V_MSJ_SAL                   OUT VARCHAR2          indica la descripcion de la ejecucion.
+    ------------------------------------------------------------------------------------------------------------ */
+    PROCEDURE PRC_DETALLE_SER_CARCENTER (E_COD_SERVICIO IN NUMBER,
+                                         S_N_COD_SAL    OUT NUMBER,
+                                         S_V_MSJ_SAL    OUT VARCHAR2);
+                                          
  /* ---------------------------------------------------------------------------------------------------------
     PROYECTO                 : CAR_CENTER_PROJECT
     FECHA CREACION           : 24 de MARZO de 2021
@@ -370,8 +411,8 @@ BEGIN
    IF V_TIPO_ACCION = 'C' THEN
    
       -- validaciones de parametros de entrada
-      IF (E_V_ACCION IS NULL OR E_NUM_IDENT_CLI IS NULL OR E_TIPO_IDENT_CLI IS NULL OR E_PRIMER_NOMBRE IS NULL OR E_SEGUNDO_NOMBRE IS NULL OR
-          E_PRIMER_APELLIDO IS NULL OR E_SEGUNDO_APELLIDO IS NULL OR E_NUMERO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CORREO_ELECTRONICO IS NULL ) THEN
+      IF (E_V_ACCION IS NULL OR E_NUM_IDENT_CLI IS NULL OR E_TIPO_IDENT_CLI IS NULL OR E_PRIMER_NOMBRE IS NULL OR E_PRIMER_APELLIDO IS NULL OR 
+          E_NUMERO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CORREO_ELECTRONICO IS NULL ) THEN
         S_N_COD_SAL := -2;
         S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
       END IF;
@@ -382,6 +423,10 @@ BEGIN
                      VALUES (V_NUM_IDENT_CLI, V_TIPO_IDENT_CLI, V_PRIMER_NOMBRE, V_SEGUNDO_NOMBRE, V_PRIMER_APELLIDO,   
                              V_SEGUNDO_APELLIDO, V_NUMERO_CONTACTO, V_DIRECCION, V_CORREO_ELECTRONICO);
         COMMIT;
+      
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+      
       EXCEPTION WHEN OTHERS THEN
       S_N_COD_SAL := -3;
       S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_CLINTE_CARCENTER.';
@@ -418,6 +463,9 @@ BEGIN
         END IF;
         OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
         
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+   
         EXCEPTION
           WHEN NO_DATA_FOUND THEN
             S_N_COD_SAL := -4;
@@ -447,7 +495,10 @@ BEGIN
          S_V_MSJ_SAL := 'No existe registro para actualizar!.';
         END IF;
      COMMIT;
-    END ;
+     S_N_COD_SAL := 0;
+     S_V_MSJ_SAL := 'Proceso Exitoso.';
+    
+    END;
    END IF;
    
    IF V_TIPO_ACCION = 'D' THEN
@@ -460,13 +511,12 @@ BEGIN
       
       DELETE FROM CLIENTE WHERE NUM_IDENT_CLI = E_NUM_IDENT_CLI;
       COMMIT;
+      S_N_COD_SAL := 0;
+      S_V_MSJ_SAL := 'Proceso Exitoso.';
        
-    END ;
+    END;
    END IF;
    
-   S_N_COD_SAL := 0;
-   S_V_MSJ_SAL := 'Proceso Exitoso.';
-  
    EXCEPTION
     WHEN NO_DATA_FOUND THEN
       S_N_COD_SAL := -8;
@@ -529,8 +579,8 @@ BEGIN
        IF V_TIPO_ACCION = 'C' THEN
        
           -- validaciones de parametros de entrada
-          IF (E_V_ACCION IS NULL OR E_NUM_IDENT_MEC IS NULL OR E_TIPO_IDENT_MEC IS NULL OR E_PRIMER_NOMBRE IS NULL OR E_SEGUNDO_NOMBRE IS NULL OR
-              E_PRIMER_APELLIDO IS NULL OR E_SEGUNDO_APELLIDO IS NULL OR E_NUMERO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CORREO_ELECTRONICO IS NULL OR
+          IF (E_V_ACCION IS NULL OR E_NUM_IDENT_MEC IS NULL OR E_TIPO_IDENT_MEC IS NULL OR E_PRIMER_NOMBRE IS NULL OR E_PRIMER_APELLIDO IS NULL OR 
+              E_NUMERO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CORREO_ELECTRONICO IS NULL OR
               E_ESTADO_MECANICO_RESP IS NULL) THEN
             S_N_COD_SAL := -2;
             S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
@@ -542,6 +592,10 @@ BEGIN
                                       VALUES (V_NUM_IDENT_MEC, V_TIPO_IDENT_MEC, V_PRIMER_NOMBRE, V_SEGUNDO_NOMBRE, V_PRIMER_APELLIDO,     
                                               V_SEGUNDO_APELLIDO, V_NUMERO_CONTACTO, V_DIRECCION, V_CORREO_ELECTRONICO, V_ESTADO_MECANICO_RESP);
             COMMIT;
+            
+            S_N_COD_SAL := 0;
+            S_V_MSJ_SAL := 'Proceso Exitoso.';
+          
           EXCEPTION WHEN OTHERS THEN
           S_N_COD_SAL := -3;
           S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_MECAN_CARCENTER.';
@@ -579,6 +633,8 @@ BEGIN
                            FROM MECANICO_RESPONSABLE';  
             END IF;
             OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
+            S_N_COD_SAL := 0;
+            S_V_MSJ_SAL := 'Proceso Exitoso.';
             
             EXCEPTION
               WHEN NO_DATA_FOUND THEN
@@ -611,6 +667,9 @@ BEGIN
              S_V_MSJ_SAL := 'No existe registro para actualizar!.';
             END IF;
          COMMIT;
+         S_N_COD_SAL := 0;
+         S_V_MSJ_SAL := 'Proceso Exitoso.';
+        
         END ;
        END IF;
        
@@ -630,7 +689,9 @@ BEGIN
             S_V_MSJ_SAL := 'No existe registro para actualizar!.';
           END IF;
           COMMIT;
-           
+          S_N_COD_SAL := 0;
+          S_V_MSJ_SAL := 'Proceso Exitoso.'; 
+        
         END ;
        END IF;
        
@@ -649,139 +710,150 @@ BEGIN
 
   END PRC_CRUD_MECAN_CARCENTER;
 
-  PROCEDURE PRC_CRUD_ALMACEN_CARCENTER (E_V_ACCION          IN VARCHAR2,
-                                        E_NOMBRE_ALMACEN    IN VARCHAR2, 
-                                        E_TELEFONO_CONTACTO IN VARCHAR2, 
-                                        E_DIRECCION         IN VARCHAR2, 
-                                        E_CIUDAD            IN VARCHAR2,
-                                        S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
-                                        S_N_COD_SAL         OUT NUMBER,
-                                        S_V_MSJ_SAL         OUT VARCHAR2) AS
+  PROCEDURE PRC_CRUD_SUCURSAL_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                         E_COD_SUCURSAL      IN NUMBER,
+                                         E_NOMBRE_SUCURSAL   IN VARCHAR2, 
+                                         E_TELEFONO_CONTACTO IN VARCHAR2, 
+                                         E_DIRECCION         IN VARCHAR2, 
+                                         E_CIUDAD            IN VARCHAR2,
+                                         S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
+                                         S_N_COD_SAL         OUT NUMBER,
+                                         S_V_MSJ_SAL         OUT VARCHAR2) AS
                                         
   V_TIPO_ACCION       VARCHAR2(1);
   V_SQL               VARCHAR2(4000);
-  V_COD_SUCURSAL      ALMACEN.COD_SUCURSAL%TYPE;     
-  V_NOMBRE_ALMACEN    ALMACEN.NOMBRE_ALMACEN%TYPE;   
-  V_DIRECCION         ALMACEN.DIRECCION%TYPE;        
-  V_TELEFONO_CONTACTO ALMACEN.TELEFONO_CONTACTO%TYPE;
-  V_CIUDAD            ALMACEN.CIUDAD%TYPE;
+  V_COD_SUCURSAL      SUCURSAL.COD_SUCURSAL%TYPE;     
+  V_NOMBRE_SUCURSAL   SUCURSAL.NOMBRE_SUCURSAL%TYPE;   
+  V_DIRECCION         SUCURSAL.DIRECCION%TYPE;        
+  V_TELEFONO_CONTACTO SUCURSAL.TELEFONO_CONTACTO%TYPE;
+  V_CIUDAD            SUCURSAL.CIUDAD%TYPE;
 
-BEGIN
- BEGIN
-
- --Validacion de mayusculas
-  SELECT UPPER (E_V_ACCION), UPPER (E_NOMBRE_ALMACEN), UPPER (E_TELEFONO_CONTACTO), UPPER (E_DIRECCION), UPPER (E_CIUDAD)
-    INTO V_TIPO_ACCION, V_NOMBRE_ALMACEN, V_TELEFONO_CONTACTO, V_DIRECCION, V_CIUDAD
-    FROM DUAL;
+  BEGIN
+   BEGIN
   
-  --Validacion valores validos para las acciones validas
-  IF( V_TIPO_ACCION <> 'C' AND  V_TIPO_ACCION <> 'R' AND V_TIPO_ACCION <> 'U' AND  V_TIPO_ACCION <> 'D' ) THEN
-      S_N_COD_SAL := -1;
-      S_V_MSJ_SAL := 'La Accion a realizar debe ser C = CREATE; R = READ; U = UPDATE; D = DELETE, por favor verifique.';
-  END IF;
-
-  -- Guardar informacion en la tabla CLIENTE
-   IF V_TIPO_ACCION = 'C' THEN
-   
-      -- validaciones de parametros de entrada
-      IF (E_V_ACCION IS NULL OR E_NOMBRE_ALMACEN IS NULL OR E_TELEFONO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CIUDAD IS NULL) THEN
-        S_N_COD_SAL := -2;
-        S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
-      END IF;
-      
-      BEGIN
-        INSERT INTO ALMACEN (COD_SUCURSAL, NOMBRE_ALMACEN, DIRECCION, TELEFONO_CONTACTO, CIUDAD)
-                     VALUES (SEQ_ALMACEN.NEXTVAL, V_NOMBRE_ALMACEN, V_DIRECCION, V_TELEFONO_CONTACTO, V_CIUDAD);
-        COMMIT;
-      EXCEPTION WHEN OTHERS THEN
-      S_N_COD_SAL := -3;
-      S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_ALMACEN_CARCENTER.';
-    END ;
-   END IF;
-   
-    IF V_TIPO_ACCION = 'R' THEN
-     BEGIN
-       
-       V_SQL := 'SELECT COD_SUCURSAL,
-                        NOMBRE_ALMACEN,
-                        DIRECCION,
-                        TELEFONO_CONTACTO,
-                        CIUDAD
-                   FROM ALMACEN';
-
-        OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
-        
-        EXCEPTION
-          WHEN NO_DATA_FOUND THEN
-            S_N_COD_SAL := -4;
-            S_V_MSJ_SAL := 'Error consultando la informacion de la tabla cliente. --PRC_CRUD_ALMACEN_CARCENTER';
-    END ;
-   END IF;
-   
-   IF V_TIPO_ACCION = 'U' THEN
-    BEGIN
-        
-       -- Consultar codigo sucursal
-       SELECT COD_SUCURSAL
-         INTO V_COD_SUCURSAL
-         FROM ALMACEN
-        WHERE NOMBRE_ALMACEN = V_NOMBRE_ALMACEN;
-       
-       IF (V_COD_SUCURSAL IS NULL) THEN
-        S_N_COD_SAL := -5;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar la actualizacion';
-       END IF;
+   --Validacion de mayusculas
+    SELECT UPPER (E_V_ACCION), UPPER (E_COD_SUCURSAL), UPPER (E_NOMBRE_SUCURSAL), UPPER (E_TELEFONO_CONTACTO), UPPER (E_DIRECCION), UPPER (E_CIUDAD)
+      INTO V_TIPO_ACCION, V_COD_SUCURSAL, V_NOMBRE_SUCURSAL, V_TELEFONO_CONTACTO, V_DIRECCION, V_CIUDAD
+      FROM DUAL;
+    
+    --Validacion valores validos para las acciones validas
+    IF( V_TIPO_ACCION <> 'C' AND  V_TIPO_ACCION <> 'R' AND V_TIPO_ACCION <> 'U' AND  V_TIPO_ACCION <> 'D' ) THEN
+        S_N_COD_SAL := -1;
+        S_V_MSJ_SAL := 'La Accion a realizar debe ser C = CREATE; R = READ; U = UPDATE; D = DELETE, por favor verifique.';
+    END IF;
   
-        UPDATE ALMACEN SET NOMBRE_ALMACEN = V_NOMBRE_ALMACEN, 
-                           DIRECCION = V_DIRECCION, 
-                           TELEFONO_CONTACTO = V_TELEFONO_CONTACTO, 
-                           CIUDAD = V_CIUDAD    
-                     WHERE COD_SUCURSAL = V_COD_SUCURSAL;
-        
-        IF SQL%ROWCOUNT = 0 THEN
-         S_N_COD_SAL := -6;
-         S_V_MSJ_SAL := 'No existe registro para actualizar!.';
-        END IF;
-     COMMIT;
-    END ;
-   END IF;
-   
-   IF V_TIPO_ACCION = 'D' THEN
-     BEGIN
+    -- Guardar informacion en la tabla CLIENTE
+     IF V_TIPO_ACCION = 'C' THEN
      
-      -- Consultar codigo sucursal
-       SELECT COD_SUCURSAL
-         INTO V_COD_SUCURSAL
-         FROM ALMACEN
-        WHERE NOMBRE_ALMACEN = V_NOMBRE_ALMACEN;
+        -- validaciones de parametros de entrada
+        IF (E_V_ACCION IS NULL OR E_NOMBRE_SUCURSAL IS NULL OR E_TELEFONO_CONTACTO IS NULL OR E_DIRECCION IS NULL OR E_CIUDAD IS NULL) THEN
+          S_N_COD_SAL := -2;
+          S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
+        END IF;
         
-      IF (V_COD_SUCURSAL IS NULL) THEN
-        S_N_COD_SAL := -7;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar con la eliminacion';
-      END IF;
+        BEGIN
+          INSERT INTO SUCURSAL (COD_SUCURSAL, NOMBRE_SUCURSAL, DIRECCION, TELEFONO_CONTACTO, CIUDAD)
+                        VALUES (SEQ_SUCURSAL.NEXTVAL, V_NOMBRE_SUCURSAL, V_DIRECCION, V_TELEFONO_CONTACTO, V_CIUDAD);
+          COMMIT;
+          
+          S_N_COD_SAL := 0;
+          S_V_MSJ_SAL := 'Proceso Exitoso.';
+          
+        EXCEPTION WHEN OTHERS THEN
+        S_N_COD_SAL := -3;
+        S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_SUCURSAL_CARCENTER.';
+      END ;
+     END IF;
+     
+      IF V_TIPO_ACCION = 'R' THEN
+       BEGIN
+         
+         IF E_COD_SUCURSAL IS NOT NULL THEN
+           V_SQL := 'SELECT COD_SUCURSAL,
+                            NOMBRE_ALMACEN,
+                            DIRECCION,
+                            TELEFONO_CONTACTO,
+                            CIUDAD
+                       FROM SUCURSAL 
+                      WHERE COD_SUCURSAL = '|| E_COD_SUCURSAL;
+         ELSE
+           V_SQL := 'SELECT COD_SUCURSAL,
+                            NOMBRE_ALMACEN,
+                            DIRECCION,
+                            TELEFONO_CONTACTO,
+                            CIUDAD
+                       FROM SUCURSAL';
+         END IF;
+          OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
+          
+          S_N_COD_SAL := 0;
+          S_V_MSJ_SAL := 'Proceso Exitoso.';
+          
+          EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+              S_N_COD_SAL := -4;
+              S_V_MSJ_SAL := 'Error consultando la informacion de la tabla cliente. --PRC_CRUD_SUCURSAL_CARCENTER';
+      END ;
+     END IF;
+     
+     IF V_TIPO_ACCION = 'U' THEN
+      BEGIN
+          
+        -- validaciones de parametros de entrada
+        IF (E_COD_SUCURSAL IS NULL) THEN
+          S_N_COD_SAL := -5;
+          S_V_MSJ_SAL := 'Por favor ingrese E_COD_SUCURSAL para continuar con la actualizacion.';
+        END IF;
+    
+          UPDATE SUCURSAL SET NOMBRE_SUCURSAL = V_NOMBRE_SUCURSAL, 
+                              DIRECCION = V_DIRECCION, 
+                              TELEFONO_CONTACTO = V_TELEFONO_CONTACTO, 
+                              CIUDAD = V_CIUDAD    
+                       WHERE COD_SUCURSAL = V_COD_SUCURSAL;
+          
+          IF SQL%ROWCOUNT = 0 THEN
+           S_N_COD_SAL := -6;
+           S_V_MSJ_SAL := 'No existe registro para actualizar!.';
+          END IF;
+       COMMIT;
+       S_N_COD_SAL := 0;
+       S_V_MSJ_SAL := 'Proceso Exitoso.';
       
-      DELETE FROM ALMACEN WHERE COD_SUCURSAL = V_COD_SUCURSAL;
-      COMMIT;
+      END ;
+     END IF;
+     
+     IF V_TIPO_ACCION = 'D' THEN
+       BEGIN
        
-    END ;
-   END IF;
-   
-   S_N_COD_SAL := 0;
-   S_V_MSJ_SAL := 'Proceso Exitoso.';
-  
-   EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-      S_N_COD_SAL := -8;
-      S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CRUD_ALMACEN_CARCENTER';
-      
-    WHEN OTHERS THEN
-      S_N_COD_SAL := -99;
-      S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
-   END;
+        -- validaciones de parametros de entrada
+        IF (E_COD_SUCURSAL IS NULL) THEN
+          S_N_COD_SAL := -7;
+          S_V_MSJ_SAL := 'Por favor ingrese E_COD_SUCURSAL para continuar con la eliminacion.';
+        END IF;
+        
+        DELETE FROM SUCURSAL WHERE COD_SUCURSAL = V_COD_SUCURSAL;
+        COMMIT;
+        
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+         
+      END ;
+     END IF;
+     
+     EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+        S_N_COD_SAL := -8;
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CRUD_SUCURSAL_CARCENTER';
+        
+      WHEN OTHERS THEN
+        S_N_COD_SAL := -99;
+        S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
+     END;
 
-  END PRC_CRUD_ALMACEN_CARCENTER;
+  END PRC_CRUD_SUCURSAL_CARCENTER;
 
   PROCEDURE PRC_CRUD_PRODUCTO_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                         E_COD_PRODUCTO      IN NUMBER,
                                          E_NOMBRE_PRODUCTO   IN VARCHAR2, 
                                          E_VALOR_UNITARIO    IN NUMBER, 
                                          E_CANTIDAD_PROD     IN NUMBER, 
@@ -798,142 +870,157 @@ BEGIN
   V_CANTIDAD_PROD   PRODUCTO.CANTIDAD_PROD%TYPE; 
   V_DESCUENTO       PRODUCTO.DESCUENTO%TYPE; 
 
-BEGIN
- BEGIN
-
- --Validacion de mayusculas
-  SELECT UPPER (E_V_ACCION), UPPER (E_NOMBRE_PRODUCTO), UPPER (E_VALOR_UNITARIO), UPPER (E_CANTIDAD_PROD), UPPER (E_DESCUENTO)
-    INTO V_TIPO_ACCION, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO
-    FROM DUAL;
+  BEGIN
+   BEGIN
   
-  --Validacion valores validos para las acciones validas
-  IF( V_TIPO_ACCION <> 'C' AND  V_TIPO_ACCION <> 'R' AND V_TIPO_ACCION <> 'U' AND  V_TIPO_ACCION <> 'D' ) THEN
-      S_N_COD_SAL := -1;
-      S_V_MSJ_SAL := 'La Accion a realizar debe ser C = CREATE; R = READ; U = UPDATE; D = DELETE, por favor verifique.';
-  END IF;
-
-  -- Guardar informacion en la tabla CLIENTE
-   IF V_TIPO_ACCION = 'C' THEN
-   
-      -- validaciones de parametros de entrada
-      IF (E_V_ACCION IS NULL OR E_NOMBRE_PRODUCTO IS NULL OR E_VALOR_UNITARIO IS NULL OR E_CANTIDAD_PROD IS NULL OR E_DESCUENTO IS NULL) THEN
-        S_N_COD_SAL := -2;
-        S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
-      END IF;
-      
-      BEGIN
-        INSERT INTO PRODUCTO (COD_PRODUCTO, NOMBRE_PRODUCTO, VALOR_UNITARIO, CANTIDAD_PROD,DESCUENTO)
-                      VALUES (SEQ_PRODUCTO.NEXTVAL, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO);
-        COMMIT;
-      EXCEPTION WHEN OTHERS THEN
-      S_N_COD_SAL := -3;
-      S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_PRODUCTO_CARCENTER.';
-    END ;
-   END IF;
-   
-    IF V_TIPO_ACCION = 'R' THEN
-     BEGIN
-       
-       V_SQL := 'SELECT COD_PRODUCTO,
-                        NOMBRE_PRODUCTO,
-                        VALOR_UNITARIO,
-                        CANTIDAD_PROD,
-                        DESCUENTO
-                   FROM PRODUCTO';
-
-        OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
-        
-        EXCEPTION
-          WHEN NO_DATA_FOUND THEN
-            S_N_COD_SAL := -4;
-            S_V_MSJ_SAL := 'Error consultando la informacion de la tabla cliente. --PRC_CRUD_PRODUCTO_CARCENTER';
-    END ;
-   END IF;
-   
-   IF V_TIPO_ACCION = 'U' THEN
-    BEGIN
-        
-       -- Consultar codigo sucursal
-       SELECT COD_PRODUCTO
-         INTO V_COD_PRODUCTO
-         FROM PRODUCTO
-        WHERE NOMBRE_PRODUCTO = V_NOMBRE_PRODUCTO;
-       
-       IF (V_COD_PRODUCTO IS NULL) THEN
-        S_N_COD_SAL := -5;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar la actualizacion';
-       END IF;
+   --Validacion de mayusculas
+    SELECT UPPER (E_V_ACCION), UPPER (E_NOMBRE_PRODUCTO), UPPER (E_VALOR_UNITARIO), UPPER (E_CANTIDAD_PROD), UPPER (E_DESCUENTO)
+      INTO V_TIPO_ACCION, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO
+      FROM DUAL;
+    
+    --Validacion valores validos para las acciones validas
+    IF( V_TIPO_ACCION <> 'C' AND  V_TIPO_ACCION <> 'R' AND V_TIPO_ACCION <> 'U' AND  V_TIPO_ACCION <> 'D' ) THEN
+        S_N_COD_SAL := -1;
+        S_V_MSJ_SAL := 'La Accion a realizar debe ser C = CREATE; R = READ; U = UPDATE; D = DELETE, por favor verifique.';
+    END IF;
   
-        UPDATE PRODUCTO SET NOMBRE_PRODUCTO = V_NOMBRE_PRODUCTO,
-                            VALOR_UNITARIO = V_VALOR_UNITARIO,
-                            CANTIDAD_PROD = V_CANTIDAD_PROD,
-                            DESCUENTO = V_DESCUENTO  
-                     WHERE COD_PRODUCTO = V_COD_PRODUCTO;
-        
-        IF SQL%ROWCOUNT = 0 THEN
-         S_N_COD_SAL := -6;
-         S_V_MSJ_SAL := 'No existe registro para actualizar!.';
-        END IF;
-     COMMIT;
-    END ;
-   END IF;
-   
-   IF V_TIPO_ACCION = 'D' THEN
-     BEGIN
+    -- Guardar informacion en la tabla CLIENTE
+     IF V_TIPO_ACCION = 'C' THEN
      
-      -- Consultar codigo sucursal
-      SELECT COD_PRODUCTO
-        INTO V_COD_PRODUCTO
-        FROM PRODUCTO
-       WHERE NOMBRE_PRODUCTO = V_NOMBRE_PRODUCTO;
+        -- validaciones de parametros de entrada
+        IF (E_V_ACCION IS NULL OR E_NOMBRE_PRODUCTO IS NULL OR E_VALOR_UNITARIO IS NULL OR E_CANTIDAD_PROD IS NULL OR E_DESCUENTO IS NULL) THEN
+          S_N_COD_SAL := -2;
+          S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
+        END IF;
         
-      IF (V_COD_PRODUCTO IS NULL) THEN
-        S_N_COD_SAL := -7;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar con la eliminacion';
-      END IF;
-      
-      DELETE FROM PRODUCTO WHERE COD_PRODUCTO = V_COD_PRODUCTO;
-      COMMIT;
+        BEGIN
+          INSERT INTO PRODUCTO (COD_PRODUCTO, NOMBRE_PRODUCTO, VALOR_UNITARIO, CANTIDAD_PROD,DESCUENTO)
+                        VALUES (SEQ_PRODUCTO.NEXTVAL, V_NOMBRE_PRODUCTO, V_VALOR_UNITARIO, V_CANTIDAD_PROD, V_DESCUENTO);
+          COMMIT;
+          
+          S_N_COD_SAL := 0;
+          S_V_MSJ_SAL := 'Proceso Exitoso.';
+        
+        EXCEPTION WHEN OTHERS THEN
+        S_N_COD_SAL := -3;
+        S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_PRODUCTO_CARCENTER.';
+      END ;
+     END IF;
+     
+      IF V_TIPO_ACCION = 'R' THEN
+       BEGIN
+         
+         IF E_COD_PRODUCTO IS NOT NULL THEN
+         
+           V_SQL := 'SELECT COD_PRODUCTO,
+                            NOMBRE_PRODUCTO,
+                            VALOR_UNITARIO,
+                            CANTIDAD_PROD,
+                            DESCUENTO
+                       FROM PRODUCTO = '|| E_COD_PRODUCTO;
+         ELSE
+           V_SQL := 'SELECT COD_PRODUCTO,
+                            NOMBRE_PRODUCTO,
+                            VALOR_UNITARIO,
+                            CANTIDAD_PROD,
+                            DESCUENTO
+                       FROM PRODUCTO';
+         END IF;
+           
+          OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
+          
+          S_N_COD_SAL := 0;
+          S_V_MSJ_SAL := 'Proceso Exitoso.';
+           
+          EXCEPTION
+            WHEN NO_DATA_FOUND THEN
+              S_N_COD_SAL := -4;
+              S_V_MSJ_SAL := 'Error consultando la informacion de la tabla cliente. --PRC_CRUD_PRODUCTO_CARCENTER';
+      END ;
+     END IF;
+     
+     IF V_TIPO_ACCION = 'U' THEN
+      BEGIN
+          
+        -- validaciones de parametros de entrada
+        IF (E_COD_PRODUCTO IS NULL) THEN
+          S_N_COD_SAL := -5;
+          S_V_MSJ_SAL := 'Por favor ingrese E_COD_PRODUCTO para continuar con la actualizacion.';
+        END IF;
+    
+    
+          UPDATE PRODUCTO SET NOMBRE_PRODUCTO = V_NOMBRE_PRODUCTO,
+                              VALOR_UNITARIO = V_VALOR_UNITARIO,
+                              CANTIDAD_PROD = V_CANTIDAD_PROD,
+                              DESCUENTO = V_DESCUENTO  
+                       WHERE COD_PRODUCTO = V_COD_PRODUCTO;
+          
+          IF SQL%ROWCOUNT = 0 THEN
+           S_N_COD_SAL := -6;
+           S_V_MSJ_SAL := 'No existe registro para actualizar!.';
+          END IF;
+       COMMIT;
        
-    END ;
-   END IF;
-   
-   S_N_COD_SAL := 0;
-   S_V_MSJ_SAL := 'Proceso Exitoso.';
-  
-   EXCEPTION
-    WHEN NO_DATA_FOUND THEN
-      S_N_COD_SAL := -8;
-      S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CRUD_ALMACEN_CARCENTER';
+       S_N_COD_SAL := 0;
+       S_V_MSJ_SAL := 'Proceso Exitoso.';
       
-    WHEN OTHERS THEN
-      S_N_COD_SAL := -99;
-      S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
-   END;
+      END ;
+     END IF;
+     
+     IF V_TIPO_ACCION = 'D' THEN
+       BEGIN
+       
+       -- validaciones de parametros de entrada
+        IF (E_COD_PRODUCTO IS NULL) THEN
+          S_N_COD_SAL := -5;
+          S_V_MSJ_SAL := 'Por favor ingrese E_COD_PRODUCTO para continuar con la eliminacion.';
+        END IF;
+        
+        DELETE FROM PRODUCTO WHERE COD_PRODUCTO = V_COD_PRODUCTO;
+        COMMIT;
+        
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+         
+      END ;
+     END IF;
+    
+     EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+        S_N_COD_SAL := -8;
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CRUD_PRODUCTO_CARCENTER';
+        
+      WHEN OTHERS THEN
+        S_N_COD_SAL := -99;
+        S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
+     END;
 
   END PRC_CRUD_PRODUCTO_CARCENTER;
 
   PROCEDURE PRC_CRUD_VEHICULO_CARCENTER (E_V_ACCION          IN VARCHAR2,
-                                         E_NOMBRE            IN VARCHAR2, 
+                                         E_PLACA             IN VARCHAR2,
+                                         E_TIPO_VEHICULO     IN VARCHAR2, 
                                          E_MODELO            IN VARCHAR2, 
-                                         E_MARCA             IN VARCHAR2, 
+                                         E_MARCA             IN VARCHAR2,
+                                         E_NUM_MOTOR         IN VARCHAR2,
                                          S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                          S_N_COD_SAL         OUT NUMBER,
                                          S_V_MSJ_SAL         OUT VARCHAR2) AS
                                          
-  V_TIPO_ACCION  VARCHAR2(1);
-  V_SQL          VARCHAR2(4000);
-  V_COD_VEHICULO VEHICULO.COD_VEHICULO%TYPE; 
-  V_NOMBRE       VEHICULO.NOMBRE%TYPE;
-  V_MODELO       VEHICULO.MODELO%TYPE;
-  V_MARCA        VEHICULO.MARCA%TYPE;
+  V_TIPO_ACCION   VARCHAR2(1);
+  V_SQL           VARCHAR2(4000);
+  V_PLACA         VEHICULO.PLACA%TYPE; 
+  V_TIPO_VEHICULO VEHICULO.TIPO_VEHICULO%TYPE;
+  V_MODELO        VEHICULO.MODELO%TYPE;
+  V_MARCA         VEHICULO.MARCA%TYPE;
+  V_NUM_MOTOR     VEHICULO.NUM_MOTOR%TYPE;
 
 BEGIN
  BEGIN
 
  --Validacion de mayusculas
-  SELECT UPPER (E_V_ACCION), UPPER (E_NOMBRE), UPPER (E_MODELO), UPPER (E_MARCA)
-    INTO V_TIPO_ACCION, V_NOMBRE, V_MODELO, V_MARCA
+  SELECT UPPER (E_V_ACCION), UPPER(E_PLACA), UPPER (E_TIPO_VEHICULO), UPPER (E_MODELO), UPPER (E_MARCA), UPPER (E_NUM_MOTOR)
+    INTO V_TIPO_ACCION, V_PLACA, V_TIPO_VEHICULO, V_MODELO, V_MARCA, V_NUM_MOTOR
     FROM DUAL;
   
   --Validacion valores validos para las acciones validas
@@ -946,15 +1033,19 @@ BEGIN
    IF V_TIPO_ACCION = 'C' THEN
    
       -- validaciones de parametros de entrada
-      IF (E_V_ACCION IS NULL OR E_NOMBRE IS NULL OR E_MODELO IS NULL OR E_MARCA IS NULL) THEN
+      IF (E_V_ACCION IS NULL OR E_PLACA IS NULL OR E_TIPO_VEHICULO IS NULL OR E_MODELO IS NULL OR E_MARCA IS NULL OR E_NUM_MOTOR IS NULL) THEN
         S_N_COD_SAL := -2;
         S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
       END IF;
       
       BEGIN
-        INSERT INTO VEHICULO (COD_VEHICULO, NOMBRE, MODELO, MARCA)
-                      VALUES (SEQ_VEHICULO.NEXTVAL, V_NOMBRE, V_MODELO, V_MARCA);
+        INSERT INTO VEHICULO (PLACA, TIPO_VEHICULO, MODELO, MARCA, NUM_MOTOR)
+                      VALUES (V_PLACA, V_TIPO_VEHICULO, V_MODELO, V_MARCA, V_NUM_MOTOR);
         COMMIT;
+        
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+      
       EXCEPTION WHEN OTHERS THEN
       S_N_COD_SAL := -3;
       S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_VEHICULO_CARCENTER.';
@@ -964,13 +1055,29 @@ BEGIN
     IF V_TIPO_ACCION = 'R' THEN
      BEGIN
        
-       V_SQL := 'SELECT COD_VEHICULO,
-                        NOMBRE, 
-                        MODELO,
-                        MARCA
-                   FROM VEHICULO';
+       IF E_PLACA IS NOT NULL THEN
+         
+           V_SQL := 'SELECT PLACA,
+                            NOMBRE, 
+                            MODELO,
+                            MARCA,
+                            NUM_MOTOR
+                       FROM VEHICULO
+                      WHERE PLACA = '|| E_PLACA;
+         ELSE
+           V_SQL := 'SELECT PLACA,
+                      NOMBRE, 
+                      MODELO,
+                      MARCA,
+                      NUM_MOTOR
+                 FROM VEHICULO';
+         END IF;
+     
 
         OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
+        
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
         
         EXCEPTION
           WHEN NO_DATA_FOUND THEN
@@ -982,52 +1089,47 @@ BEGIN
    IF V_TIPO_ACCION = 'U' THEN
     BEGIN
         
-       -- Consultar codigo vehiculo
-       SELECT COD_VEHICULO
-         INTO V_COD_VEHICULO
-         FROM VEHICULO
-        WHERE NOMBRE = V_NOMBRE;
-       
-       IF (V_COD_VEHICULO IS NULL) THEN
-        S_N_COD_SAL := -5;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar la actualizacion';
-       END IF;
+        -- validaciones de parametros de entrada
+        IF (E_PLACA IS NULL) THEN
+          S_N_COD_SAL := -5;
+          S_V_MSJ_SAL := 'Por favor ingrese E_PLACA para continuar con la actualizacion.';
+        END IF;
   
-        UPDATE VEHICULO SET NOMBRE = V_NOMBRE,
+        UPDATE VEHICULO SET TIPO_VEHICULO = V_TIPO_VEHICULO,
                             MODELO = V_MODELO,
-                            MARCA = V_MARCA 
-                     WHERE COD_VEHICULO = V_COD_VEHICULO;
+                            MARCA = V_MARCA,
+                            NUM_MOTOR = V_NUM_MOTOR
+                      WHERE PLACA = V_PLACA;
         
         IF SQL%ROWCOUNT = 0 THEN
          S_N_COD_SAL := -6;
          S_V_MSJ_SAL := 'No existe registro para actualizar!.';
         END IF;
      COMMIT;
+     
+     S_N_COD_SAL := 0;
+     S_V_MSJ_SAL := 'Proceso Exitoso.';
+    
     END ;
    END IF;
    
    IF V_TIPO_ACCION = 'D' THEN
      BEGIN
      
-      -- Consultar codigo vehiculo
-       SELECT COD_VEHICULO
-         INTO V_COD_VEHICULO
-         FROM VEHICULO
-        WHERE NOMBRE = V_NOMBRE;
-        
-      IF (V_COD_VEHICULO IS NULL) THEN
+      -- validaciones de parametros de entrada
+      IF (E_PLACA IS NULL) THEN
         S_N_COD_SAL := -7;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar con la eliminacion';
+        S_V_MSJ_SAL := 'Por favor ingrese E_PLACA para continuar con la eliminacion.';
       END IF;
       
-      DELETE FROM VEHICULO WHERE COD_VEHICULO = V_COD_VEHICULO;
+      DELETE FROM VEHICULO WHERE PLACA = V_PLACA;
       COMMIT;
+      
+      S_N_COD_SAL := 0;
+      S_V_MSJ_SAL := 'Proceso Exitoso.';
        
     END ;
    END IF;
-   
-   S_N_COD_SAL := 0;
-   S_V_MSJ_SAL := 'Proceso Exitoso.';
   
    EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -1042,11 +1144,10 @@ BEGIN
   END PRC_CRUD_VEHICULO_CARCENTER;
 
   PROCEDURE PRC_CRUD_DESC_SERVI_CARCENTER (E_V_ACCION          IN VARCHAR2,
+                                           E_COD_SERVICIO      IN NUMBER,
                                            E_VALOR_MANO_OBRA   IN NUMBER, 
                                            E_DESCUENTO         IN NUMBER, 
                                            E_OBSERVACION       IN VARCHAR2, 
-                                           E_NOM_PRODUCTO      IN VARCHAR2,
-                                           E_CANT_VENDIDO      IN NUMBER,
                                            E_NUM_IDENT_MEC     IN VARCHAR2,
                                            S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                            S_N_COD_SAL         OUT NUMBER,
@@ -1054,22 +1155,21 @@ BEGIN
                                            
   V_TIPO_ACCION     VARCHAR2(1);
   V_SQL             VARCHAR2(4000);
+  V_COD_SERVICIO    DESCRIPCION_SERVICIO.COD_SERVICIO%TYPE;
   V_VALOR_MANO_OBRA DESCRIPCION_SERVICIO.VALOR_MANO_OBRA%TYPE; 
   V_DESCUENTO       DESCRIPCION_SERVICIO.DESCUENTO%TYPE; 
-  V_OBSERVACION     DESCRIPCION_SERVICIO.OBSERVACION%TYPE; 
-  V_COD_PRODUCTO    DESCRIPCION_SERVICIO.COD_PRODUCTO%TYPE;  
-  V_NOM_PRODUCTO    PRODUCTO.NOMBRE_PRODUCTO%TYPE;
-  V_CANT_VENDIDO    DESCRIPCION_SERVICIO.CAN_PRODUCTO_VENDIDO%TYPE;
+  V_OBSERVACION     DESCRIPCION_SERVICIO.OBSERVACION%TYPE;  
   V_NUM_IDENT_MEC   MECANICO_RESPONSABLE.NUM_IDENT_MEC%TYPE;
   V_PORC_MANO_OBRA  NUMBER;
+  V_NUM_FACTURA     FACTURA.NUM_FACTURA%TYPE;
 
 BEGIN
  BEGIN
 
  --Validacion de mayusculas
-  SELECT UPPER (E_V_ACCION), UPPER (E_VALOR_MANO_OBRA), UPPER (E_DESCUENTO), UPPER (E_OBSERVACION), UPPER (E_NOM_PRODUCTO),
-         UPPER(E_CANT_VENDIDO), UPPER (E_NUM_IDENT_MEC)
-    INTO V_TIPO_ACCION, V_VALOR_MANO_OBRA, V_DESCUENTO, V_OBSERVACION, V_NOM_PRODUCTO, V_CANT_VENDIDO, V_NUM_IDENT_MEC
+  SELECT UPPER (E_V_ACCION), UPPER (E_COD_SERVICIO), UPPER (E_VALOR_MANO_OBRA), UPPER (E_DESCUENTO), UPPER (E_OBSERVACION),
+         UPPER (E_NUM_IDENT_MEC)
+    INTO V_TIPO_ACCION, V_COD_SERVICIO, V_VALOR_MANO_OBRA, V_DESCUENTO, V_OBSERVACION, V_NUM_IDENT_MEC
     FROM DUAL;
   
   --Validacion valores validos para las acciones validas
@@ -1082,74 +1182,72 @@ BEGIN
    IF V_TIPO_ACCION = 'C' THEN
    
       -- validaciones de parametros de entrada
-      IF (E_V_ACCION IS NULL OR E_VALOR_MANO_OBRA IS NULL OR E_DESCUENTO IS NULL OR E_OBSERVACION IS NULL OR E_NOM_PRODUCTO IS NULL OR 
-          E_NUM_IDENT_MEC IS NULL) THEN
+      IF (E_V_ACCION IS NULL OR E_VALOR_MANO_OBRA IS NULL OR E_DESCUENTO IS NULL OR E_OBSERVACION IS NULL OR E_NUM_IDENT_MEC IS NULL) THEN
         S_N_COD_SAL := -2;
         S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
       END IF;
       
-      --Consultar informacion
-      SELECT COD_PRODUCTO
-        INTO V_COD_PRODUCTO
-        FROM PRODUCTO
-       WHERE NOMBRE_PRODUCTO = V_NOM_PRODUCTO;
-      
       BEGIN
-        INSERT INTO DESCRIPCION_SERVICIO (COD_SERVICIO, VALOR_MANO_OBRA, DESCUENTO, OBSERVACION, COD_PRODUCTO, NUM_IDENT_MEC, CAN_PRODUCTO_VENDIDO)
-                                  VALUES (SEQ_DESCRIPCION_SERVICIO.NEXTVAL, V_VALOR_MANO_OBRA, V_DESCUENTO, V_OBSERVACION,
-                                          V_COD_PRODUCTO, V_NUM_IDENT_MEC, V_CANT_VENDIDO);
-        
+        INSERT INTO DESCRIPCION_SERVICIO (COD_SERVICIO, VALOR_MANO_OBRA, DESCUENTO, OBSERVACION, NUM_IDENT_MEC)
+                                  VALUES (SEQ_DESCRIPCION_SERVICIO.NEXTVAL, V_VALOR_MANO_OBRA, V_DESCUENTO, V_OBSERVACION, V_NUM_IDENT_MEC);
         COMMIT;
                                           
         IF V_VALOR_MANO_OBRA >= 3000000 THEN
-        
-          SELECT TO_NUMBER(DS.VALOR_MANO_OBRA * ( 1 - 0.5)) AS PORC_MANO_OBRA
+          
+          SELECT MAX(COD_SERVICIO) COD_SERVICIO
+            INTO V_COD_SERVICIO
+            FROM DESCRIPCION_SERVICIO;
+          
+          SELECT TO_NUMBER(DS.VALOR_MANO_OBRA * ( 1 - 0.50)) PORC_MANO_OBRA
             INTO V_PORC_MANO_OBRA
             FROM DESCRIPCION_SERVICIO DS, FACTURA FA
-           WHERE DS.COD_SERVICIO = FA.COD_SERVICIO
+           WHERE DS.COD_SERVICIO = V_COD_SERVICIO
              AND FA.NUM_FACTURA IN (SELECT MAX(F.NUM_FACTURA) 
                                       FROM FACTURA F);
           
-            
+          --Actualizar valor de mano de obra con el 50%  
           UPDATE DESCRIPCION_SERVICIO SET VALOR_MANO_OBRA = V_PORC_MANO_OBRA,
                                           DESCUENTO = 50
-                                    WHERE NUM_IDENT_MEC = V_NUM_IDENT_MEC;
+                                    WHERE COD_SERVICIO = V_COD_SERVICIO;
+                                    
           COMMIT;
           
         END IF;
         
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
         
       EXCEPTION WHEN OTHERS THEN
       S_N_COD_SAL := -3;
       S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_DESC_SERVI_CARCENTER.';
+      
     END ;
    END IF;
    
     IF V_TIPO_ACCION = 'R' THEN
      BEGIN
        
-       IF E_NUM_IDENT_MEC IS NOT NULL THEN 
-         V_SQL := 'SELECT COD_SERVICIO,
-                   VALOR_MANO_OBRA,
-                   DESCUENTO,
-                   OBSERVACION, 
-                   COD_PRODUCTO,
-                   NUM_IDENT_MEC,
-                   CAN_PRODUCTO_VENDIDO
-              FROM DESCRIPCION_SERVICIO
-             WHERE NUM_IDENT_MEC = ' || V_NUM_IDENT_MEC;
-       ELSE
+       IF E_COD_SERVICIO IS NOT NULL THEN 
          V_SQL := 'SELECT COD_SERVICIO,
                           VALOR_MANO_OBRA,
                           DESCUENTO,
                           OBSERVACION, 
-                          COD_PRODUCTO,
-                          NUM_IDENT_MEC,
-                          CAN_PRODUCTO_VENDIDO
+                          NUM_IDENT_MEC
+                    FROM DESCRIPCION_SERVICIO
+                   WHERE COD_SERVICIO = ' || V_COD_SERVICIO;
+       ELSE
+         V_SQL := 'SELECT COD_SERVICIO,
+                          VALOR_MANO_OBRA,
+                          DESCUENTO,
+                          OBSERVACION,
+                          NUM_IDENT_MEC
                      FROM DESCRIPCION_SERVICIO';
       END IF;
       OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
       
+      S_N_COD_SAL := 0;
+      S_V_MSJ_SAL := 'Proceso Exitoso.';
+     
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
           S_N_COD_SAL := -4;
@@ -1159,41 +1257,48 @@ BEGIN
    
    IF V_TIPO_ACCION = 'U' THEN
     BEGIN
-             
-       IF (E_NUM_IDENT_MEC IS NULL) THEN
+            
+      -- validaciones de parametros de entrada
+      IF (E_COD_SERVICIO IS NULL) THEN
         S_N_COD_SAL := -5;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar la actualizacion';
-       END IF;
+        S_V_MSJ_SAL := 'Por favor ingrese E_COD_SERVICIO para continuar con la actualizacion.';
+      END IF;
        
-        UPDATE DESCRIPCION_SERVICIO SET VALOR_MANO_OBRA = V_VALOR_MANO_OBRA,
-                                        DESCUENTO = V_DESCUENTO,
-                                        OBSERVACION = V_OBSERVACION
-                                  WHERE NUM_IDENT_MEC = V_NUM_IDENT_MEC;
+      UPDATE DESCRIPCION_SERVICIO SET VALOR_MANO_OBRA = V_VALOR_MANO_OBRA,
+                                      DESCUENTO = V_DESCUENTO,
+                                      OBSERVACION = V_OBSERVACION
+                                WHERE COD_SERVICIO = V_COD_SERVICIO;
         
-        IF SQL%ROWCOUNT = 0 THEN
-         S_N_COD_SAL := -6;
-         S_V_MSJ_SAL := 'No existe registro para actualizar!.';
-        END IF;
+      IF SQL%ROWCOUNT = 0 THEN
+       S_N_COD_SAL := -6;
+       S_V_MSJ_SAL := 'No existe registro para actualizar!.';
+      END IF;
+      
      COMMIT;
-    END ;
+     
+     S_N_COD_SAL := 0;
+     S_V_MSJ_SAL := 'Proceso Exitoso.';
+    
+    END;
    END IF;
    
    IF V_TIPO_ACCION = 'D' THEN
-     BEGIN
-        
-      IF (E_NUM_IDENT_MEC IS NULL) THEN
+   
+     BEGIN  
+      -- validaciones de parametros de entrada
+      IF (E_COD_SERVICIO IS NULL) THEN
         S_N_COD_SAL := -7;
-        S_V_MSJ_SAL := 'No se encontro la informacion para poder continuar con la eliminacion';
+        S_V_MSJ_SAL := 'Por favor ingrese E_COD_SERVICIO para continuar con la eliminacion.';
       END IF;
-      
-      DELETE FROM DESCRIPCION_SERVICIO WHERE NUM_IDENT_MEC = E_NUM_IDENT_MEC;
+            
+      -- Eliminacion   
+      DELETE FROM DESCRIPCION_SERVICIO WHERE COD_SERVICIO = V_COD_SERVICIO;
       COMMIT;
-       
+      S_N_COD_SAL := 0;
+      S_V_MSJ_SAL := 'Proceso Exitoso.';
+      
     END ;
    END IF;
-   
-   S_N_COD_SAL := 0;
-   S_V_MSJ_SAL := 'Proceso Exitoso.';
   
    EXCEPTION
     WHEN NO_DATA_FOUND THEN
@@ -1213,17 +1318,18 @@ BEGIN
                                         E_FORMA_PAGO        IN VARCHAR2,
                                         E_MEDIO_PAGO        IN VARCHAR2,
                                         E_IVA               IN NUMBER,
-                                        E_VALOR_TOTAL_FACT  IN NUMBER,
                                         E_NUM_IDENT_CLI     IN VARCHAR2,
-                                        E_NUM_IDENT_MEC     IN VARCHAR2,
-                                        E_NOMBRE_ALMACEN    IN VARCHAR2,
-                                        E_NOMBRE_VEHICULO   IN VARCHAR2,
+                                        E_COD_SUCURSAL      IN NUMBER,
+                                        E_VALOR_MINIMO      IN NUMBER,
+                                        E_VALOR_MAXIMO      IN NUMBER,
                                         S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                         S_N_COD_SAL         OUT NUMBER,
                                         S_V_MSJ_SAL         OUT VARCHAR2) AS
                                         
   V_TIPO_ACCION      VARCHAR2(1);
   V_SQL              VARCHAR2(4000);
+  V_VALOR_MINIMO     NUMBER;
+  V_VALOR_MAXIMO     NUMBER;
   V_FECHA_FACTURA    FACTURA.FECHA_FACTURA%TYPE;
   V_PLACA            FACTURA.PLACA%TYPE;
   V_FORMA_PAGO       FACTURA.FORMA_PAGO%TYPE;
@@ -1231,21 +1337,19 @@ BEGIN
   V_IVA              FACTURA.IVA%TYPE;
   V_VALOR_TOTAL_FACT FACTURA.VALOR_TOTAL_FACT%TYPE;
   V_NUM_IDENT_CLI    CLIENTE.NUM_IDENT_CLI%TYPE;
-  V_COD_SERVICIO     DESCRIPCION_SERVICIO.COD_SERVICIO%TYPE; -- Se consulta por V_NUM_IDENT_MEC
-  V_COD_SUCURSAL     ALMACEN.COD_SUCURSAL%TYPE; -- Se consulta por V_NOMBRE_ALMACEN 
-  V_COD_VEHICULO     VEHICULO.COD_VEHICULO%TYPE; -- Se valida por V_NOMBRE_VEHICULO
+  V_VALOR_MANO_OBRA  DESCRIPCION_SERVICIO.VALOR_MANO_OBRA%TYPE;
+  V_COD_SUCURSAL     SUCURSAL.COD_SUCURSAL%TYPE;  
   V_NUM_IDENT_MEC    DESCRIPCION_SERVICIO.NUM_IDENT_MEC%TYPE;
-  V_NOMBRE_ALMACEN   ALMACEN.NOMBRE_ALMACEN%TYPE;
-  V_NOMBRE_VEHICULO  VEHICULO.NOMBRE%TYPE;
+
 
 BEGIN
  BEGIN
 
  --Validacion de mayusculas
   SELECT UPPER (E_V_ACCION), UPPER (E_FECHA_FACTURA), UPPER (E_PLACA), UPPER (E_FORMA_PAGO), UPPER (E_MEDIO_PAGO), UPPER (E_IVA),
-         UPPER (E_VALOR_TOTAL_FACT), UPPER (E_NUM_IDENT_CLI), UPPER (E_NUM_IDENT_MEC), UPPER (E_NOMBRE_ALMACEN), UPPER (E_NOMBRE_VEHICULO)
-    INTO V_TIPO_ACCION, V_FECHA_FACTURA, V_PLACA, V_FORMA_PAGO, V_MEDIO_PAGO, V_IVA, V_VALOR_TOTAL_FACT, V_NUM_IDENT_CLI, 
-         V_NUM_IDENT_MEC, V_NOMBRE_ALMACEN, V_NOMBRE_VEHICULO
+         UPPER (E_NUM_IDENT_CLI), UPPER (E_COD_SUCURSAL), UPPER (E_VALOR_MINIMO), UPPER (E_VALOR_MAXIMO)
+    INTO V_TIPO_ACCION, V_FECHA_FACTURA, V_PLACA, V_FORMA_PAGO, V_MEDIO_PAGO, V_IVA, 
+         V_NUM_IDENT_CLI, V_COD_SUCURSAL, V_VALOR_MINIMO, V_VALOR_MAXIMO
     FROM DUAL;
   
   --Validacion valores validos para las acciones validas
@@ -1259,35 +1363,25 @@ BEGIN
    
       -- validaciones de parametros de entrada
       IF (E_V_ACCION IS NULL OR E_FECHA_FACTURA IS NULL OR E_PLACA IS NULL OR E_FORMA_PAGO IS NULL OR E_MEDIO_PAGO IS NULL OR E_IVA IS NULL OR 
-          E_VALOR_TOTAL_FACT IS NULL OR E_NUM_IDENT_CLI IS NULL OR E_NUM_IDENT_MEC IS NULL OR E_NOMBRE_ALMACEN IS NULL)  THEN
+          E_NUM_IDENT_CLI IS NULL OR E_COD_SUCURSAL IS NULL)  THEN
         S_N_COD_SAL := -2;
         S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
       END IF;
       
-      --Consultar informacion
-      SELECT COD_SERVICIO
-        INTO V_COD_SERVICIO
-        FROM DESCRIPCION_SERVICIO
-       WHERE NUM_IDENT_MEC = V_NUM_IDENT_MEC;
-       
-      SELECT COD_SUCURSAL
-        INTO V_COD_SUCURSAL
-        FROM ALMACEN 
-       WHERE NOMBRE_ALMACEN = V_NOMBRE_ALMACEN;
-       
-       SELECT COD_VEHICULO
-         INTO V_COD_VEHICULO
-         FROM VEHICULO 
-        WHERE NOMBRE = V_NOMBRE_VEHICULO;
-      
       BEGIN
-        INSERT INTO FACTURA (NUM_FACTURA, FECHA_FACTURA, PLACA, FORMA_PAGO, MEDIO_PAGO, IVA, VALOR_TOTAL_FACT,
-                             NUM_IDENT_CLI, COD_SERVICIO, COD_SUCURSAL, COD_VEHICULO)
-                      VALUES (SEQ_FACTURA.NEXTVAL, V_FECHA_FACTURA, V_PLACA, V_FORMA_PAGO, V_MEDIO_PAGO, V_IVA, V_VALOR_TOTAL_FACT,
-                              V_NUM_IDENT_CLI, V_COD_SERVICIO, V_COD_SUCURSAL, V_COD_VEHICULO);
+      
+        IF V_VALOR_MANO_OBRA > V_VALOR_MAXIMO THEN
+          S_N_COD_SAL := -3;
+          S_V_MSJ_SAL := 'El valor de mano de obra supera el monto definido por el cliente. --PRC_CRUD_FACTURA_CARCENTER.';
+        ELSE
+          INSERT INTO FACTURA (NUM_FACTURA, FECHA_FACTURA, PLACA, FORMA_PAGO, MEDIO_PAGO, IVA, NUM_IDENT_CLI, COD_SUCURSAL)
+                       VALUES (SEQ_FACTURA.NEXTVAL, V_FECHA_FACTURA, V_PLACA, V_FORMA_PAGO, V_MEDIO_PAGO, V_IVA,
+                               V_NUM_IDENT_CLI, V_COD_SUCURSAL);
+        END IF;
+        
         COMMIT;
       EXCEPTION WHEN OTHERS THEN
-      S_N_COD_SAL := -3;
+      S_N_COD_SAL := -4;
       S_V_MSJ_SAL := 'Error en la Insercion o registro ya existe. --PRC_CRUD_FACTURA_CARCENTER.';
     END ;
    END IF;
@@ -1301,12 +1395,9 @@ BEGIN
                           PLACA,
                           FORMA_PAGO,
                           MEDIO_PAGO,
-                          IVA,
-                          VALOR_TOTAL_FACT,
+                          IVA, 
                           NUM_IDENT_CLI,
-                          COD_SERVICIO,
-                          COD_SUCURSAL,
-                          COD_VEHICULO
+                          COD_SUCURSAL
                      FROM FACTURA
                     WHERE PLACA = ' || V_PLACA;
        ELSE
@@ -1315,19 +1406,16 @@ BEGIN
                           PLACA,
                           FORMA_PAGO,
                           MEDIO_PAGO,
-                          IVA,
-                          VALOR_TOTAL_FACT,
+                          IVA, 
                           NUM_IDENT_CLI,
-                          COD_SERVICIO,
-                          COD_SUCURSAL,
-                          COD_VEHICULO
+                          COD_SUCURSAL
                      FROM FACTURA';
       END IF;
       OPEN S_CUR_CONSULTA_INFO FOR V_SQL;
       
       EXCEPTION
         WHEN NO_DATA_FOUND THEN
-          S_N_COD_SAL := -4;
+          S_N_COD_SAL := -5;
           S_V_MSJ_SAL := 'Error consultando la informacion de la tabla cliente. --PRC_CRUD_FACTURA_CARCENTER';
     END ;
    END IF;
@@ -1337,7 +1425,7 @@ BEGIN
   
    EXCEPTION
     WHEN NO_DATA_FOUND THEN
-      S_N_COD_SAL := -5;
+      S_N_COD_SAL := -6;
       S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_CRUD_FACTURA_CARCENTER';
       
     WHEN OTHERS THEN
@@ -1347,10 +1435,86 @@ BEGIN
    
   END PRC_CRUD_FACTURA_CARCENTER;
   
+
+  PROCEDURE PRC_DETALLE_PROD_CARCENTER (E_COD_PRODUCTO         IN NUMBER,
+                                        E_CAN_PRODUCTO_VENDIDO IN NUMBER,
+                                        S_N_COD_SAL            OUT NUMBER,
+                                        S_V_MSJ_SAL            OUT VARCHAR2) AS  
+  
+  V_NUM_FACTURA FACTURA.NUM_FACTURA%TYPE;
+  
+  BEGIN
+    BEGIN
+      
+      -- validaciones de parametros de entrada
+      IF (E_COD_PRODUCTO IS NULL OR E_CAN_PRODUCTO_VENDIDO IS NULL)  THEN
+        S_N_COD_SAL := -1;
+        S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
+      END IF;
+      
+      SELECT MAX(FA.NUM_FACTURA)
+        INTO V_NUM_FACTURA
+        FROM FACTURA FA;
+        
+      INSERT INTO DETALLE_PRODUCTO (COD_PRODUCTO, NUM_FACTURA, CAN_PRODUCTO_VENDIDO)
+                            VALUES (E_COD_PRODUCTO, V_NUM_FACTURA, E_CAN_PRODUCTO_VENDIDO);
+      COMMIT;
+      S_N_COD_SAL := 0;
+      S_V_MSJ_SAL := 'Proceso Exitoso.';
+    
+      EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+        S_N_COD_SAL := -2;
+        S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_DETALLE_PROD_CARCENTER';
+        
+      WHEN OTHERS THEN
+        S_N_COD_SAL := -99;
+        S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
+     END;
+    
+  END PRC_DETALLE_PROD_CARCENTER;
+  
+  PROCEDURE PRC_DETALLE_SER_CARCENTER (E_COD_SERVICIO IN NUMBER,
+                                       S_N_COD_SAL    OUT NUMBER,
+                                       S_V_MSJ_SAL    OUT VARCHAR2) AS 
+                                       
+    V_NUM_FACTURA FACTURA.NUM_FACTURA%TYPE;
+  
+    BEGIN
+      BEGIN
+        
+        -- validaciones de parametros de entrada
+        IF (E_COD_SERVICIO IS NULL)  THEN
+          S_N_COD_SAL := -1;
+          S_V_MSJ_SAL := 'Por favor ingrese todos los parametros de entrada para continuar con la insercion.';
+        END IF;
+        
+        SELECT MAX(FA.NUM_FACTURA)
+          INTO V_NUM_FACTURA
+          FROM FACTURA FA;
+          
+        INSERT INTO DETALLE_DES_SERVICIO (COD_SERVICIO, NUM_FACTURA)
+                                  VALUES (E_COD_SERVICIO, V_NUM_FACTURA);
+        COMMIT;
+        S_N_COD_SAL := 0;
+        S_V_MSJ_SAL := 'Proceso Exitoso.';
+      
+        EXCEPTION
+        WHEN NO_DATA_FOUND THEN
+          S_N_COD_SAL := -2;
+          S_V_MSJ_SAL := 'PKG_CAR_CENTER_PROJECT.PRC_DETALLE_SER_CARCENTER';
+          
+        WHEN OTHERS THEN
+          S_N_COD_SAL := -99;
+          S_V_MSJ_SAL := SUBSTR(SQLERRM, 1, 200);
+       END;
+    
+  END PRC_DETALLE_SER_CARCENTER;
+  
   PROCEDURE PRC_CONSULTA_COMPRAS_CLIENTE (S_CUR_CONSULTA_INFO OUT SYS_REFCURSOR,
                                           S_N_COD_SAL         OUT NUMBER,
                                           S_V_MSJ_SAL         OUT VARCHAR2) AS
-    
+                                          
     BEGIN
       OPEN S_CUR_CONSULTA_INFO FOR 
         SELECT CL.NUM_IDENT_CLI,
@@ -1385,7 +1549,8 @@ BEGIN
                                     S_N_COD_SAL         OUT NUMBER,
                                     S_V_MSJ_SAL         OUT VARCHAR2) AS
   BEGIN
-    OPEN S_CUR_CONSULTA_INFO FOR 
+    null;
+   /* OPEN S_CUR_CONSULTA_INFO FOR 
        SELECT PRD.COD_PRODUCTO, PRD.NOMBRE_PRODUCTO
          FROM PRODUCTO PRD, DESCRIPCION_SERVICIO DS, FACTURA FA
         WHERE PRD.COD_PRODUCTO = DS.COD_PRODUCTO
@@ -1393,7 +1558,7 @@ BEGIN
           AND TRUNC(FA.FECHA_FACTURA) >= TO_CHAR(SYSDATE-30,'DD/MM/YYYY') 
           AND TRUNC(FA.FECHA_FACTURA) <= TO_CHAR(SYSDATE,'DD/MM/YYYY') 
         GROUP BY PRD.COD_PRODUCTO, PRD.NOMBRE_PRODUCTO 
-       HAVING SUM(DS.CAN_PRODUCTO_VENDIDO) = 100; 
+       HAVING SUM(DS.CAN_PRODUCTO_VENDIDO) = 100;*/ 
         
      S_N_COD_SAL := 0;
      S_V_MSJ_SAL := 'Proceso Exitoso.';
@@ -1413,16 +1578,18 @@ BEGIN
                                     S_N_COD_SAL         OUT NUMBER,
                                     S_V_MSJ_SAL         OUT VARCHAR2) AS
   BEGIN
-    OPEN S_CUR_CONSULTA_INFO FOR 
-       SELECT AL.NOMBRE_ALMACEN, AL.DIRECCION, AL.CIUDAD
-         FROM PRODUCTO PRD, DESCRIPCION_SERVICIO DS, FACTURA FA, ALMACEN AL
+  NULL;
+   /* OPEN S_CUR_CONSULTA_INFO FOR 
+       SELECT AL.NOMBRE_SUCURSAL, AL.DIRECCION, AL.CIUDAD
+         FROM PRODUCTO PRD, DESCRIPCION_SERVICIO DS, FACTURA FA, SUCURSAL AL, DETALLE_PRODUCTO DP
         WHERE PRD.COD_PRODUCTO = DS.COD_PRODUCTO
           AND DS.COD_SERVICIO = FA.COD_SERVICIO
+          AND PRD.COD_PRODUCTO = DP.COD_PRODUCTO
           AND FA.COD_SUCURSAL = AL.COD_SUCURSAL
           AND TRUNC(FA.FECHA_FACTURA) >= TO_CHAR(SYSDATE-60,'DD/MM/YYYY') 
           AND TRUNC(FA.FECHA_FACTURA) <= TO_CHAR(SYSDATE,'DD/MM/YYYY') 
-        GROUP BY AL.NOMBRE_ALMACEN, AL.DIRECCION, AL.CIUDAD 
-       HAVING SUM(DS.CAN_PRODUCTO_VENDIDO) >= 100; 
+        GROUP BY AL.NOMBRE_SUCURSAL, AL.DIRECCION, AL.CIUDAD 
+       HAVING SUM(DP.CAN_PRODUCTO_VENDIDO) >= 100; */
         
      S_N_COD_SAL := 0;
      S_V_MSJ_SAL := 'Proceso Exitoso.';

@@ -88,7 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contract\IOperacionCrud.cs" />
-    <Compile Include="daoAlmacen.cs" />
+    <Compile Include="daoSucursal.cs" />
     <Compile Include="daoCliente.cs" />
     <Compile Include="daoFactura.cs" />
     <Compile Include="daoMecanico.cs" />
