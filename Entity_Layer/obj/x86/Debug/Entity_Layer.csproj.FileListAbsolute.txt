@@ -1,0 +1,5 @@
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\bin\x86\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\bin\x86\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\x86\Debug\Entity_Layer.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\x86\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\x86\Debug\Entity_Layer.pdb

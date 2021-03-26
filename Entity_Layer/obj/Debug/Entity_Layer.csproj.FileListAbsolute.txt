@@ -1,0 +1,17 @@
+D:\.NET Oracle\AppCliente\Entity_Layer\bin\Debug\Entity_Layer.dll
+D:\.NET Oracle\AppCliente\Entity_Layer\bin\Debug\Entity_Layer.pdb
+D:\.NET Oracle\AppCliente\Entity_Layer\obj\Debug\Entity_Layer.csprojAssemblyReference.cache
+D:\.NET Oracle\AppCliente\Entity_Layer\obj\Debug\Entity_Layer.csproj.CoreCompileInputs.cache
+D:\.NET Oracle\AppCliente\Entity_Layer\obj\Debug\Entity_Layer.dll
+D:\.NET Oracle\AppCliente\Entity_Layer\obj\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\bin\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\bin\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\Debug\Entity_Layer.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Entity_Layer\obj\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\bin\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\bin\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\obj\Debug\Entity_Layer.csprojAssemblyReference.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\obj\Debug\Entity_Layer.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\obj\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Entity_Layer\obj\Debug\Entity_Layer.pdb

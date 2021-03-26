@@ -1,0 +1,9 @@
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\bin\x64\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\bin\x64\Debug\DataAccess.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\bin\x64\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\bin\x64\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\obj\x64\Debug\DataAccess.csprojAssemblyReference.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\obj\x64\Debug\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\obj\x64\Debug\DataAccess.csproj.CopyComplete
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\obj\x64\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\DataAccess\obj\x64\Debug\DataAccess.pdb

@@ -1,0 +1,35 @@
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\Business_Layer.dll
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\Business_Layer.pdb
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\DataAccess.dll
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\Entity_Layer.dll
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\DataAccess.pdb
+D:\.NET Oracle\AppCliente\Business_Layer\bin\Debug\Entity_Layer.pdb
+D:\.NET Oracle\AppCliente\Business_Layer\obj\Debug\Business_Layer.csprojAssemblyReference.cache
+D:\.NET Oracle\AppCliente\Business_Layer\obj\Debug\Business_Layer.csproj.CoreCompileInputs.cache
+D:\.NET Oracle\AppCliente\Business_Layer\obj\Debug\Business_Layer.csproj.CopyComplete
+D:\.NET Oracle\AppCliente\Business_Layer\obj\Debug\Business_Layer.dll
+D:\.NET Oracle\AppCliente\Business_Layer\obj\Debug\Business_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\Business_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\Business_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\DataAccess.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\bin\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\obj\Debug\Business_Layer.csprojAssemblyReference.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\obj\Debug\Business_Layer.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\obj\Debug\Business_Layer.csproj.CopyComplete
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\obj\Debug\Business_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\CarCenterProject\Business_Layer\obj\Debug\Business_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\Business_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\Business_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\DataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\Entity_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\DataAccess.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\bin\Debug\Entity_Layer.pdb
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\obj\Debug\Business_Layer.csprojAssemblyReference.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\obj\Debug\Business_Layer.csproj.CoreCompileInputs.cache
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\obj\Debug\Business_Layer.csproj.CopyComplete
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\obj\Debug\Business_Layer.dll
+C:\Users\Camilo\Documents\RepositoriosGitHub\CarCenter\Copia_CarCenter\Business_Layer\obj\Debug\Business_Layer.pdb
