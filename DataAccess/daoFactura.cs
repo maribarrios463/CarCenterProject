@@ -88,6 +88,7 @@ namespace DataAccess
                                 dto.MEDIO_PAGO = Convert.ToString(dr["MEDIO_PAGO"]);
                                 dto.PLACA = Convert.ToString(dr["PLACA"]);
                                 dto.NUM_IDENT_CLI = Convert.ToString(dr["NUM_IDENT_CLI"]);
+                                dto.IVA = Convert.ToInt32(String.IsNullOrEmpty(dr["IVA"].ToString()) ? "0" : dr["IVA"].ToString());
                                 dto.VALOR_TOTAL_FACT = Convert.ToInt32(String.IsNullOrEmpty(dr["VALOR_TOTAL_FACT"].ToString()) ? "0" : dr["VALOR_TOTAL_FACT"].ToString());
                                 list.Add(dto);
                             }
