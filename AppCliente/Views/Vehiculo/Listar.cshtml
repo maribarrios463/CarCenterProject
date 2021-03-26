@@ -1,7 +1,58 @@
-﻿
-@{
-    ViewBag.Title = "Listar";
-}
+﻿@model IEnumerable<Entity_Layer.VehiculoBO>
 
-<h2>Listar</h2>
+@{ ViewBag.Title = "Vehiculo"; }
+
+<h2>Vehiculos</h2>
+
+<p>
+    @Html.ActionLink("Crear nuevo", "InsertVehiculo")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PLACA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TIPO_VEHICULO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MARCA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MODELO)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NUM_MOTOR)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PLACA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TIPO_VEHICULO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MARCA)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MODELO)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NUM_MOTOR)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "update", new { Placa = item.PLACA }) |
+                @Html.ActionLink("Eliminar", "Delete", new { Placa = item.PLACA })
+            </td>
+        </tr>
+    }
+
+</table>
+
 

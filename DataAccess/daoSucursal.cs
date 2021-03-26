@@ -23,6 +23,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.U.ToString();
+                        command.Parameters.Add(new OracleParameter("E_COD_SUCURSAL", OracleDbType.Decimal)).Value = dto.COD_SUCURSAL;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Decimal)).Value = dto.TELEFONO_CONTACTO;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = dto.DIRECCION;
@@ -57,6 +58,7 @@ namespace DataAccess
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.D;
+                        command.Parameters.Add(new OracleParameter("E_COD_SUCURSAL", OracleDbType.Decimal)).Value = dto; 
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = null;
@@ -90,6 +92,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2, 1)).Value = V_ACCION.C.ToString();
+                        command.Parameters.Add(new OracleParameter("E_COD_SUCURSAL", OracleDbType.Decimal)).Value = dto.COD_SUCURSAL;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = dto.NOMBRE_ALMACEN;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Decimal)).Value = dto.TELEFONO_CONTACTO;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = dto.DIRECCION;
@@ -124,6 +127,7 @@ namespace DataAccess
                     {
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Parameters.Add(new OracleParameter("E_V_ACCION", OracleDbType.Varchar2)).Value = V_ACCION.R;
+                        command.Parameters.Add(new OracleParameter("E_COD_SUCURSAL", OracleDbType.Decimal)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_NOMBRE_SUCURSAL", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_TELEFONO_CONTACTO", OracleDbType.Varchar2)).Value = null;
                         command.Parameters.Add(new OracleParameter("E_DIRECCION", OracleDbType.Varchar2)).Value = null;
@@ -139,7 +143,7 @@ namespace DataAccess
                             {
                                 dto = new SucursalBO();
                                 dto.COD_SUCURSAL = Convert.ToInt32(dr["COD_SUCURSAL"].ToString());
-                                dto.NOMBRE_ALMACEN = Convert.ToString(dr["E_NOMBRE_SUCURSAL"]);
+                                dto.NOMBRE_ALMACEN = Convert.ToString(dr["NOMBRE_SUCURSAL"]);
                                 dto.TELEFONO_CONTACTO = Convert.ToInt32(dr["TELEFONO_CONTACTO"]);
                                 dto.DIRECCION = Convert.ToString(dr["DIRECCION"]);
                                 dto.CIUDAD = Convert.ToString(dr["CIUDAD"]);

@@ -28,10 +28,10 @@ namespace AppCliente.Controllers
         }
 
 
-        public ActionResult Delete(string CodVehiculo)
+        public ActionResult Delete(string Placa)
         {
             NegVehiculo obj = new NegVehiculo();
-            obj.Eliminar(CodVehiculo);
+            obj.Eliminar(Placa);
             return RedirectToAction("Listar");
         }
 
@@ -42,15 +42,33 @@ namespace AppCliente.Controllers
         }
 
         [HttpGet]
-        public ActionResult Update(int CodVehiculo)
+        public ActionResult Update(string Placa)
         {
+            List<SelectListItem> lst = new List<SelectListItem>();
+
+            lst.Add(new SelectListItem() { Text = "Automóvil", Value = "Automóvil" });
+            lst.Add(new SelectListItem() { Text = "Camioneta", Value = "Camioneta" });
+            lst.Add(new SelectListItem() { Text = "Van", Value = "Van" });
+            lst.Add(new SelectListItem() { Text = "Cuatrimoto", Value = "Cuatrimoto" });
+            lst.Add(new SelectListItem() { Text = "Moto", Value = "Moto" });
+
+            ViewBag.Opciones = lst;
             NegVehiculo obj = new NegVehiculo();
-            VehiculoBO dto = obj.Listar().FirstOrDefault(a => a.COD_VEHICULO == CodVehiculo);
+            VehiculoBO dto = obj.Listar().FirstOrDefault(a => a.PLACA == Placa);
             return View("update", dto);
         }
 
         public ActionResult InsertVehiculo()
         {
+            List<SelectListItem> lst = new List<SelectListItem>();
+
+            lst.Add(new SelectListItem() { Text = "Automóvil", Value = "Automóvil" });
+            lst.Add(new SelectListItem() { Text = "Camioneta", Value = "Camioneta" });
+            lst.Add(new SelectListItem() { Text = "Van", Value = "Van" });
+            lst.Add(new SelectListItem() { Text = "Cuatrimoto", Value = "Cuatrimoto" });
+            lst.Add(new SelectListItem() { Text = "Moto", Value = "Moto" });
+
+            ViewBag.Opciones = lst;
             return View("InsertVehiculo", new VehiculoBO());
         }
     }

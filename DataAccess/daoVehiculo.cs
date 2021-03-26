@@ -142,7 +142,7 @@ namespace DataAccess
                             while (dr.Read())
                             {
                                 dto = new VehiculoBO();
-                                dto.PLACA = Convert.ToInt32(dr["PLACA"].ToString());
+                                dto.PLACA = Convert.ToString(dr["PLACA"].ToString());
                                 dto.TIPO_VEHICULO = Convert.ToString( dr["TIPO_VEHICULO"]);
                                 dto.MARCA = Convert.ToString(dr["MARCA"]);
                                 dto.MODELO = Convert.ToString(dr["MODELO"]);

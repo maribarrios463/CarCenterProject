@@ -11,7 +11,7 @@ namespace Entity_Layer
     public class VehiculoBO
     {
         [Display(Name = "Placa")]
-        public int PLACA { get; set; }
+        public string PLACA { get; set; }
         [Required, Display(Name = "Tipo")]
         public string TIPO_VEHICULO { get; set; }
         [Required, Display(Name = "Modelo")]
